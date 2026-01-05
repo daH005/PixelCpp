@@ -1,0 +1,68 @@
+#pragma once
+#include "levelManager.hpp"
+#include "abstractGameObjects.hpp"
+#include "player.hpp"
+#include "bricks.hpp"
+#include "ladder.hpp"
+#include "coin.hpp"
+
+class Map {
+protected:
+    LevelManager levelManager;
+
+    Player player = Player(blocks);
+    vector<AbstractBlock> blocks;
+    vector<Ladder> ladders;
+    vector<Coin> coins;
+
+    void clearAllVectors() {
+        blocks.clear();
+        ladders.clear();
+        coins.clear();
+    }
+
+public:
+    Map(LevelManager levelManager) : levelManager(levelManager) {}
+
+    void reset() {
+        clearAllVectors();
+
+        json& level = levelManager.getCurrentLevelJson();
+        string t;
+        int x, y;
+        for (json& ob : level["objects"]) {
+            t = ob["type"];
+            json args = ob["args"];
+            x = args["x"];
+            y = args["y"];
+
+            if (t == "Player") {
+                player.reset(x, y);
+            }
+            else if (t == "Bricks") {
+                blocks.push_back(Bricks(x, y));
+            }
+            else if (t == "Ladder") {
+                ladders.push_back(Ladder(x, y, player));
+            }
+            else if (t == "Coin") {
+                coins.push_back(Coin(x, y, player));
+            }
+        }
+    }
+
+    void update() {
+        for (Ladder& ladder : ladders) {
+            ladder.update();
+        }
+
+        for (Coin& coin : coins) {
+            coin.update();
+        }
+
+        player.update();
+        for (AbstractBlock& block : blocks) {
+            block.update();
+        }
+    }
+};
