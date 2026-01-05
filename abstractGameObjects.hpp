@@ -27,3 +27,8 @@ class AbstractBlock : public AbstractGameObject {
 public:
     AbstractBlock(int x, int y) : AbstractGameObject(x, y) {}
 };
+
+class AbstractBackgroundBlock : public AbstractGameObject {
+public:
+    AbstractBackgroundBlock(int x, int y) : AbstractGameObject(x, y) {}
+};

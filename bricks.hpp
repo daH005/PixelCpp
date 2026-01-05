@@ -8,3 +8,10 @@ public:
         sprite.setTexture(imageManager.getBricks());
     }
 };
+
+class BackgroundBricks : public AbstractBackgroundBlock {
+public:
+    BackgroundBricks(int x, int y) : AbstractBackgroundBlock(x, y) {
+        sprite.setTexture(imageManager.getBackgroundBricks());
+    }
+};

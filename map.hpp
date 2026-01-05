@@ -13,6 +13,7 @@ protected:
 
     Player player = Player(blocks);
     vector<AbstractBlock> blocks;
+    vector<AbstractBackgroundBlock> backgroundBlocks;
     vector<Ladder> ladders;
     vector<Coin> coins;
 
@@ -48,6 +49,9 @@ public:
             else if (t == "Bricks") {
                 blocks.push_back(Bricks(x, y));
             }
+            else if (t == "BackgroundBricks") {
+                backgroundBlocks.push_back(BackgroundBricks(x, y));
+            }
             else if (t == "Ladder") {
                 ladders.push_back(Ladder(x, y, player));
             }
@@ -65,6 +69,10 @@ public:
 
     void update() {
         camera.update();
+
+        for (AbstractBackgroundBlock& backgroundBlock : backgroundBlocks) {
+            backgroundBlock.update();
+        }
 
         for (Ladder& ladder : ladders) {
             ladder.update();

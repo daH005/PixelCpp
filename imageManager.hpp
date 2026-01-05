@@ -30,6 +30,7 @@ class ImageManager {
 protected:
     Texture mapBackground;
     Texture bricks;
+    Texture backgroundBricks;
     Texture ladder;
 
     vector<Texture> coin;
@@ -42,6 +43,7 @@ public:
     ImageManager() {
         mapBackground.loadFromFile(Config::IMAGES_PATH + "/backgrounds/map.png");
         bricks.loadFromFile(Config::IMAGES_PATH + "/bricks/default.png");
+        backgroundBricks.loadFromFile(Config::IMAGES_PATH + "/bricks/background.png");
         ladder.loadFromFile(Config::IMAGES_PATH + "/ladder.png");
 
         coin = *loadTexturesFromDirectory(Config::IMAGES_PATH + "/coin");
@@ -57,6 +59,10 @@ public:
 
     const Texture& getBricks() const {
         return bricks;
+    }
+
+    const Texture& getBackgroundBricks() const {
+        return backgroundBricks;
     }
 
     const Texture& getLadder() const {
