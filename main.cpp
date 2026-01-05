@@ -3,28 +3,22 @@
 int main()
 {
 
-    sf::Font font;
-    if (!font.loadFromFile(Config::FONTS_PATH + "/pixel.ttf")) {
-        // Обработка ошибки
-        return -1;
-    }
+    Font font;
+    font.loadFromFile(Config::FONTS_PATH + "/pixel.ttf");
 
-    sf::Text fpsText;
+    Text fpsText;
     fpsText.setFont(font);
-    fpsText.setCharacterSize(20);
-    fpsText.setFillColor(sf::Color::White);
-    // Установка позиции: левый нижний угол (с учетом текста)
-    fpsText.setPosition(10.f, window->getSize().y - 30.f); // чуть выше нижней границы
+    fpsText.setFillColor(Color::White);
+    fpsText.setPosition(10.f, window->getSize().y - 30.f);
 
-    sf::Clock clock;
+    Clock clock;
     float fps = 0.0f;
     int frameCount = 0;
     float timer = 0.0f;
 
-
     LevelManager levelManager = LevelManager();
     levelManager.reset();
-    levelManager.setLevel(0);
+    levelManager.setLevel(5);
     Map map = Map(levelManager);
     map.reset();
 
@@ -41,32 +35,23 @@ int main()
         }
 
 
-        // Время с последнего кадра
         float deltaTime = clock.restart().asSeconds();
         timer += deltaTime;
         frameCount++;
 
-        // Обновлять FPS каждую секунду
         if (timer >= 1.0f) {
             fps = frameCount / timer;
             frameCount = 0;
             timer = 0.0f;
 
-            // Обновляем текст
-            std::stringstream ss;
-            ss << "FPS: " << static_cast<int>(fps);
-            fpsText.setString(ss.str());
+            fpsText.setString(to_string((int)fps));
         }
 
         window->clear(backgroundColor);
-
-
         map.update();
 
-
-        // Рисуем FPS
+        window->setView(window->getDefaultView());
         window->draw(fpsText);
-
         window->display();
     }
 

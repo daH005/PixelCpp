@@ -5,15 +5,21 @@
 #include "bricks.hpp"
 #include "ladder.hpp"
 #include "coin.hpp"
+#include "camera.hpp"
 
 class Map {
 protected:
-    LevelManager levelManager;
+    LevelManager& levelManager;
 
     Player player = Player(blocks);
     vector<AbstractBlock> blocks;
     vector<Ladder> ladders;
     vector<Coin> coins;
+
+    int w;
+    int h;
+
+    Camera camera = Camera(player);
 
     void clearAllVectors() {
         blocks.clear();
@@ -22,15 +28,15 @@ protected:
     }
 
 public:
-    Map(LevelManager levelManager) : levelManager(levelManager) {}
+    Map(LevelManager& levelManager) : levelManager(levelManager) {}
 
     void reset() {
         clearAllVectors();
 
-        json& level = levelManager.getCurrentLevelJson();
+        const json& level = levelManager.getCurrentLevelJson();
         string t;
         int x, y;
-        for (json& ob : level["objects"]) {
+        for (const json& ob : level["objects"]) {
             t = ob["type"];
             json args = ob["args"];
             x = args["x"];
@@ -49,9 +55,17 @@ public:
                 coins.push_back(Coin(x, y, player));
             }
         }
+        
+        w = level["w"];
+        h = level["h"];
+
+        camera.reset(w, h);
+        camera.quickMove();
     }
 
     void update() {
+        camera.update();
+
         for (Ladder& ladder : ladders) {
             ladder.update();
         }

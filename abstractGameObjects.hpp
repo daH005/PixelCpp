@@ -17,7 +17,7 @@ public:
         window->draw(sprite);
     }
 
-    Sprite& getSprite() {
+    const Sprite& getSprite() const {
         return sprite;
     }
 

@@ -46,7 +46,7 @@ public:
         }
     }
 
-    int getLevelCount() {
+    int getLevelCount() const {
         return levels.size();
     }
 
@@ -63,7 +63,7 @@ public:
         }
     }
 
-    json& getCurrentLevelJson() {
+    const json& getCurrentLevelJson() const {
         return levels[currentLevelIndex];
     }
 

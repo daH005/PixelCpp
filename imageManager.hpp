@@ -51,34 +51,34 @@ public:
         playerGoVertical = *loadTexturesFromDirectory(Config::IMAGES_PATH + "/player/default/go_vertical");
     }
 
-    Texture& getMapBackground() {
+    const Texture& getMapBackground() const {
         return mapBackground;
     }
 
-    Texture& getBricks() {
+    const Texture& getBricks() const {
         return bricks;
     }
 
-    Texture& getLadder() {
+    const Texture& getLadder() const {
         return ladder;
     }
 
-    vector<Texture>& getCoin() {
+    const vector<Texture>& getCoin() const {
         return coin;
     }
 
-    vector<Texture>& getPlayerStand() {
+    const vector<Texture>& getPlayerStand() const {
         return playerStand;
     }
 
-    vector<Texture>& getPlayerGo() {
+    const vector<Texture>& getPlayerGo() const {
         return playerGo;
     }
 
-    vector<Texture>& getPlayerGoVertical() {
+    const vector<Texture>& getPlayerGoVertical() const {
         return playerGoVertical;
     }
 
 };
 
-ImageManager imageManager = ImageManager();
+const ImageManager imageManager = ImageManager();

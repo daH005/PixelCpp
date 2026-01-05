@@ -137,6 +137,7 @@
     <ClInclude Include="abstractGameObjects.hpp" />
     <ClInclude Include="abstractInteractingWithPlayerGameObject.hpp" />
     <ClInclude Include="bricks.hpp" />
+    <ClInclude Include="camera.hpp" />
     <ClInclude Include="coin.hpp" />
     <ClInclude Include="config.hpp" />
     <ClInclude Include="counters.hpp" />

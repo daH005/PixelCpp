@@ -20,7 +20,7 @@ public:
         currentCount = 0;
     }
 
-    float delta() {
+    float delta() const {
         return maxCount - currentCount;
     }
 
@@ -30,7 +30,7 @@ public:
         }
     }
 
-    bool isWorking() {
+    bool isWorking() const {
         return currentCount > 0;
     }
 
@@ -48,7 +48,7 @@ public:
         timeCounter = TimeCounter(delay);
     }
 
-    int getCurrentIndex() {
+    int getCurrentIndex() const {
         return currentIndex;
     }
 
