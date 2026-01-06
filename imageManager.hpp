@@ -7,54 +7,77 @@
 using namespace sf;
 using namespace std;
 
-vector<Texture>* loadTexturesFromDirectory(string basePath, string extension = ".png") {
-    vector<Texture>* textures = new vector<Texture>();
+vector<Texture> loadTexturesFromDirectory(string basePath) {
+    vector<Texture> textures = vector<Texture>();
 
     string currentPath;
     int i = 0;
     while (true) {
         Texture currentTexture;
-        currentPath = basePath + "/" + to_string(i) + extension;
+        currentPath = Config::IMAGES_PATH + "/" + basePath + "/" + to_string(i) + ".png";
         if (!currentTexture.loadFromFile(currentPath)) {
             break;
         }
 
-        textures->push_back(currentTexture);
+        textures.push_back(currentTexture);
         i++;
     }
 
     return textures;
 }
 
+Texture loadTexture(string basePath) {
+    Texture texture;
+    texture.loadFromFile(Config::IMAGES_PATH + "/" + basePath + ".png");
+    return texture;
+}
+
 class ImageManager {
 protected:
-    Texture mapBackground;
-    Texture bricks;
-    Texture backgroundBricks;
-    Texture ladder;
+    Texture mapBackground = loadTexture("backgrouns/map");
 
-    vector<Texture> coin;
+    Texture dirt = loadTexture("dirt/default");
+    Texture leftDirt = loadTexture("dirt/left");
+    Texture rightDirt = loadTexture("dirt/right");
+    Texture backgroundDirt = loadTexture("dirt/background");
+    vector<Texture> grasses = loadTexturesFromDirectory("dirt/grass");
 
-    vector<Texture> playerStand;
-    vector<Texture> playerGo;
-    vector<Texture> playerGoVertical;
+    Texture bricks = loadTexture("bricks/default");
+    Texture backgroundBricks = loadTexture("bricks/background");
+
+    Texture ladder = loadTexture("ladder");
+
+    vector<Texture> coin = loadTexturesFromDirectory("coin");
+
+    vector<Texture> playerStand = loadTexturesFromDirectory("player/default/stand");
+    vector<Texture> playerGo = loadTexturesFromDirectory("player/default/go");
+    vector<Texture> playerGoVertical = loadTexturesFromDirectory("player/default/go_vertical");
 
 public:
-    ImageManager() {
-        mapBackground.loadFromFile(Config::IMAGES_PATH + "/backgrounds/map.png");
-        bricks.loadFromFile(Config::IMAGES_PATH + "/bricks/default.png");
-        backgroundBricks.loadFromFile(Config::IMAGES_PATH + "/bricks/background.png");
-        ladder.loadFromFile(Config::IMAGES_PATH + "/ladder.png");
-
-        coin = *loadTexturesFromDirectory(Config::IMAGES_PATH + "/coin");
-
-        playerStand = *loadTexturesFromDirectory(Config::IMAGES_PATH + "/player/default/stand");
-        playerGo = *loadTexturesFromDirectory(Config::IMAGES_PATH + "/player/default/go");
-        playerGoVertical = *loadTexturesFromDirectory(Config::IMAGES_PATH + "/player/default/go_vertical");
-    }
+    ImageManager() {}
 
     const Texture& getMapBackground() const {
         return mapBackground;
+    }
+
+    const Texture& getDirt() const {
+        return dirt;
+    }
+
+    const Texture& getLeftDirt() const {
+        return leftDirt;
+    }
+
+    const Texture& getRightDirt() const {
+        return rightDirt;
+    }
+
+    const Texture& getBackgroundDirt() const {
+        return backgroundDirt;
+    }
+
+    const vector<Texture>& getGrasses() const {
+        return grasses;
     }
 
     const Texture& getBricks() const {

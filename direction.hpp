@@ -1,6 +1,7 @@
 #pragma once
 
 enum Direction {
-    RIGHT,
-    LEFT,
+    NO = 0,
+    RIGHT = 1,
+    LEFT = -1,
 };

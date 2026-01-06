@@ -68,5 +68,8 @@
     <ClInclude Include="camera.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="dirt.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

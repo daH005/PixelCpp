@@ -18,7 +18,7 @@ int main()
 
     LevelManager levelManager = LevelManager();
     levelManager.reset();
-    levelManager.setLevel(5);
+    levelManager.setLevel(9);
     Map map = Map(levelManager);
     map.reset();
 
@@ -52,6 +52,7 @@ int main()
 
         window->setView(window->getDefaultView());
         window->draw(fpsText);
+
         window->display();
     }
 

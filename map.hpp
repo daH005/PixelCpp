@@ -2,6 +2,7 @@
 #include "levelManager.hpp"
 #include "abstractGameObjects.hpp"
 #include "player.hpp"
+#include "dirt.hpp"
 #include "bricks.hpp"
 #include "ladder.hpp"
 #include "coin.hpp"
@@ -13,6 +14,7 @@ protected:
 
     Player player = Player(blocks);
     vector<AbstractBlock> blocks;
+    vector<Dirt> dirts;
     vector<AbstractBackgroundBlock> backgroundBlocks;
     vector<Ladder> ladders;
     vector<Coin> coins;
@@ -33,6 +35,7 @@ public:
 
     void reset() {
         clearAllVectors();
+        currentGrassIndex = 0;
 
         const json& level = levelManager.getCurrentLevelJson();
         string t;
@@ -45,18 +48,36 @@ public:
 
             if (t == "Player") {
                 player.reset(x, y);
+
+            }
+            else if (t == "Dirt") {
+                json& direction = args["direction"];
+                if (direction.is_null()) {
+                    direction = 0;
+                }
+                else {
+                    direction = (int)direction;
+                }
+                Dirt dirt = Dirt(x, y, direction, args["grass_enabled"]);
+                dirts.push_back(dirt);
+                blocks.push_back(dirt);
+
             }
             else if (t == "Bricks") {
                 blocks.push_back(Bricks(x, y));
+
             }
             else if (t == "BackgroundBricks") {
                 backgroundBlocks.push_back(BackgroundBricks(x, y));
+
             }
             else if (t == "Ladder") {
                 ladders.push_back(Ladder(x, y, player));
+
             }
             else if (t == "Coin") {
                 coins.push_back(Coin(x, y, player));
+
             }
         }
         
@@ -85,6 +106,9 @@ public:
         player.update();
         for (AbstractBlock& block : blocks) {
             block.update();
+        }
+        for (Dirt& dirt : dirts) {
+            dirt.update();
         }
     }
 };
