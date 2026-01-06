@@ -7,6 +7,8 @@
 #include "ladder.hpp"
 #include "coin.hpp"
 #include "camera.hpp"
+#include "mapBackground.hpp"
+#include "cloudManager.hpp"
 
 class Map {
 protected:
@@ -23,9 +25,21 @@ protected:
     int h;
 
     Camera camera = Camera(player);
+    MapBackground background = MapBackground(camera);
+    CloudManager cloudManager = CloudManager();
+    
+    class Sun : public AbstractGameObject {
+    public:
+        Sun() : AbstractGameObject(50, 50) {
+            sprite.setTexture(imageManager.getSun());
+        }
+    };
+    Sun sun = Sun();
 
     void clearAllVectors() {
         blocks.clear();
+        dirts.clear();
+        backgroundBlocks.clear();
         ladders.clear();
         coins.clear();
     }
@@ -35,7 +49,7 @@ public:
 
     void reset() {
         clearAllVectors();
-        currentGrassIndex = 0;
+        Dirt::resetGrass();
 
         const json& level = levelManager.getCurrentLevelJson();
         string t;
@@ -86,10 +100,19 @@ public:
 
         camera.reset(w, h);
         camera.quickMove();
+
+        background.reset();
+        cloudManager.reset();
     }
 
     void update() {
         camera.update();
+
+        background.update();
+        sun.update();
+        cloudManager.update();
+
+        window->setView(camera.getView());
 
         for (AbstractBackgroundBlock& backgroundBlock : backgroundBlocks) {
             backgroundBlock.update();
@@ -110,5 +133,7 @@ public:
         for (Dirt& dirt : dirts) {
             dirt.update();
         }
+
+        window->setView(window->getDefaultView());
     }
 };

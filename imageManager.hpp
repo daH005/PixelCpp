@@ -23,18 +23,26 @@ vector<Texture> loadTexturesFromDirectory(string basePath) {
         i++;
     }
 
+    if (textures.size() == 0) {
+        throw runtime_error("Textures " + basePath + " were not found!");
+    }
+
     return textures;
 }
 
 Texture loadTexture(string basePath) {
     Texture texture;
-    texture.loadFromFile(Config::IMAGES_PATH + "/" + basePath + ".png");
+    if (!texture.loadFromFile(Config::IMAGES_PATH + "/" + basePath + ".png")) {
+        throw runtime_error("Texture " + basePath + " was not found!");
+    }
     return texture;
 }
 
 class ImageManager {
 protected:
-    Texture mapBackground = loadTexture("backgrouns/map");
+    Texture mapBackground = loadTexture("backgrounds/map");
+    Texture sun = loadTexture("sun");
+    vector<Texture> clouds = loadTexturesFromDirectory("clouds");
 
     Texture dirt = loadTexture("dirt/default");
     Texture leftDirt = loadTexture("dirt/left");
@@ -58,6 +66,14 @@ public:
 
     const Texture& getMapBackground() const {
         return mapBackground;
+    }
+
+    const Texture& getSun() const {
+        return sun;
+    }
+
+    const vector<Texture>& getClouds() const {
+        return clouds;
     }
 
     const Texture& getDirt() const {

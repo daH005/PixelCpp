@@ -50,7 +50,6 @@ int main()
         window->clear(backgroundColor);
         map.update();
 
-        window->setView(window->getDefaultView());
         window->draw(fpsText);
 
         window->display();

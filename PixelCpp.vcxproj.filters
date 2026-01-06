@@ -71,5 +71,11 @@
     <ClInclude Include="dirt.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
+    <ClInclude Include="mapBackground.hpp">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="cloudManager.hpp">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

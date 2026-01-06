@@ -26,16 +26,16 @@ protected:
 
     void updateXYtoMove() {
         FloatRect playerRect = player.getSprite().getGlobalBounds();
-        xToMove = getCenterX(playerRect);
-        yToMove = getCenterY(playerRect);
+        xToMove = getCenterXofRect(playerRect);
+        yToMove = getCenterYofRect(playerRect);
         considerMapEdges();
     }
 
-    int getCenterX(FloatRect& rect) const {
+    int getCenterXofRect(FloatRect& rect) const {
         return rect.left + rect.width / 2;
     }
 
-    int getCenterY(FloatRect& rect) const {
+    int getCenterYofRect(FloatRect& rect) const {
         return rect.top + rect.height / 2;
     }
 
@@ -50,9 +50,9 @@ protected:
     }
 
     void updateXY() {
-        Vector2f vewCenter = view.getCenter();
-        float xVel = (xToMove - vewCenter.x) * X_SMOOTH;
-        float yVel = (yToMove - vewCenter.y) * Y_SMOOTH;
+        Vector2f viewCenter = view.getCenter();
+        float xVel = (xToMove - viewCenter.x) * X_SMOOTH;
+        float yVel = (yToMove - viewCenter.y) * Y_SMOOTH;
         view.move(xVel, yVel);
     }
 
@@ -61,7 +61,7 @@ protected:
     }
 
 public:
-    Camera(Player& player): player(player) {}
+    Camera(Player& player) : player(player) {}
 
     void reset(int _mapW, int _mapH) {
         mapW = _mapW;
@@ -71,11 +71,14 @@ public:
     void update() {
         updateXYtoMove();
         updateXY();
-        window->setView(view);
     }
 
     void quickMove() {
         updateXYtoMove();
         quickUpdateXY();
+    }
+
+    const View& getView() const {
+        return view;
     }
 };

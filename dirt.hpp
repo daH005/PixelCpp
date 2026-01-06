@@ -5,10 +5,9 @@
 #include "imageManager.hpp"
 #include "direction.hpp"
 
-int currentGrassIndex = 0;
-
 class Dirt : public AbstractBlock {
 protected:
+    static int currentGrassIndex;
     Sprite grassSprite;
 
     Direction direction;
@@ -44,7 +43,12 @@ public:
         AbstractBlock::update();
         window->draw(grassSprite);
     }
+
+    static void resetGrass() {
+        currentGrassIndex = 0;
+    }
 };
+int Dirt::currentGrassIndex = 0;
 
 class BackgroundDirt : public AbstractBackgroundBlock {
 public:

@@ -138,6 +138,7 @@
     <ClInclude Include="abstractInteractingWithPlayerGameObject.hpp" />
     <ClInclude Include="bricks.hpp" />
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="cloudManager.hpp" />
     <ClInclude Include="coin.hpp" />
     <ClInclude Include="config.hpp" />
     <ClInclude Include="counters.hpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="ladder.hpp" />
     <ClInclude Include="levelManager.hpp" />
     <ClInclude Include="map.hpp" />
+    <ClInclude Include="mapBackground.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
