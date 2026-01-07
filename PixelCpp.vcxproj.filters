@@ -32,7 +32,7 @@
     <ClInclude Include="window.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="imageManager.hpp">
+    <ClInclude Include="images.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="counters.hpp">

@@ -31,7 +31,7 @@ protected:
     class Sun : public AbstractGameObject {
     public:
         Sun() : AbstractGameObject(50, 50) {
-            sprite.setTexture(imageManager.getSun());
+            sprite.setTexture(images::sun);
         }
     };
     Sun sun = Sun();

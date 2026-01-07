@@ -144,7 +144,7 @@
     <ClInclude Include="counters.hpp" />
     <ClInclude Include="direction.hpp" />
     <ClInclude Include="dirt.hpp" />
-    <ClInclude Include="imageManager.hpp" />
+    <ClInclude Include="images.hpp" />
     <ClInclude Include="ladder.hpp" />
     <ClInclude Include="levelManager.hpp" />
     <ClInclude Include="map.hpp" />

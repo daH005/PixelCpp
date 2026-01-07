@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "abstractGameObjects.hpp"
-#include "imageManager.hpp"
+#include "images.hpp"
 #include "direction.hpp"
 
 class Dirt : public AbstractBlock {
@@ -15,19 +15,19 @@ protected:
 
     void initImage() {
         if (direction == Direction::LEFT) {
-            sprite.setTexture(imageManager.getLeftDirt());
+            sprite.setTexture(images::leftDirt);
         }
         else if (direction == Direction::RIGHT) {
-            sprite.setTexture(imageManager.getRightDirt());
+            sprite.setTexture(images::rightDirt);
         }
         else {
-            sprite.setTexture(imageManager.getDirt());
+            sprite.setTexture(images::dirt);
         }
 
         if (withGrass) {
-            grassSprite.setTexture(imageManager.getGrasses()[currentGrassIndex]);
+            grassSprite.setTexture(images::grasses[currentGrassIndex]);
             currentGrassIndex++;
-            if (currentGrassIndex > imageManager.getGrasses().size() - 1) {
+            if (currentGrassIndex > images::grasses.size() - 1) {
                 currentGrassIndex = 0;
             }
         }
@@ -53,6 +53,6 @@ int Dirt::currentGrassIndex = 0;
 class BackgroundDirt : public AbstractBackgroundBlock {
 public:
     BackgroundDirt(int x, int y) : AbstractBackgroundBlock(x, y) {
-        sprite.setTexture(imageManager.getBackgroundDirt());
+        sprite.setTexture(images::backgroundDirt);
     }
 };

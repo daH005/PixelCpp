@@ -12,7 +12,7 @@ protected:
 
 public:
     MapBackground(Camera& camera) : AbstractGameObject(0, 0), camera(camera) {
-        sprite.setTexture(imageManager.getMapBackground());
+        sprite.setTexture(images::mapBackground);
         y = window->getSize().y - sprite.getGlobalBounds().height;
         halfW = window->getSize().x / 2;
     }

@@ -1,6 +1,6 @@
 #pragma once
 #include "abstractGameObjects.hpp"
-#include "imageManager.hpp"
+#include "images.hpp"
 #include "counters.hpp"
 #include "direction.hpp"
 
@@ -18,9 +18,9 @@ protected:
 
     vector<AbstractBlock>& blocks;
 
-    vector<Texture> standTextures = imageManager.getPlayerStand();
-    vector<Texture> goTextures = imageManager.getPlayerGo();
-    vector<Texture> goVerticalTextures = imageManager.getPlayerGoVertical();
+    vector<Texture> standTextures = images::playerStand;
+    vector<Texture> goTextures = images::playerGo;
+    vector<Texture> goVerticalTextures = images::playerGoVertical;
 
     FrameCounter standAnim = FrameCounter(standTextures.size(), 1);
     FrameCounter goAnim = FrameCounter(goTextures.size(), 0.2);

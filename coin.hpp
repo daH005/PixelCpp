@@ -4,7 +4,7 @@
 class Coin : public AbstractInteractingWithPlayerGameObject {
 protected:
 
-    vector<Texture> textures = imageManager.getCoin();
+    vector<Texture> textures = images::coin;
     FrameCounter anim = FrameCounter(textures.size(), 0.3);
 
     void _handleCollisionWithPlayer() override {

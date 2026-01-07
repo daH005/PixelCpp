@@ -2,7 +2,7 @@
 #include <random>
 
 #include "abstractGameObjects.hpp"
-#include "imageManager.hpp"
+#include "images.hpp"
 #include "counters.hpp"
 
 random_device rd;
@@ -21,9 +21,9 @@ protected:
     int xToDelete = window->getSize().x;
 
     void initImage() {
-        sprite.setTexture(imageManager.getClouds()[currentImageIndex]);
+        sprite.setTexture(images::clouds[currentImageIndex]);
         currentImageIndex++;
-        if (currentImageIndex > imageManager.getClouds().size() - 1) {
+        if (currentImageIndex > images::clouds.size() - 1) {
             currentImageIndex = 0;
         }
     }

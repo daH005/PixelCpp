@@ -10,6 +10,6 @@ protected:
 
 public:
     Ladder(int x, int y, Player& player) : AbstractInteractingWithPlayerGameObject(x, y, player) {
-        sprite.setTexture(imageManager.getLadder());
+        sprite.setTexture(images::ladder);
     }
 };
