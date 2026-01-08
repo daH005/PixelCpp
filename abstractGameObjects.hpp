@@ -1,18 +1,21 @@
 #pragma once
 #include "window.hpp"
+#include "zIndex.hpp";
 
 class AbstractGameObject {
 protected:
     Sprite sprite;
+    bool toBeDeleted = false;
+    int zIndex;
 
     void virtual updateTexture() {}
 
 public:
-    AbstractGameObject(int x, int y) : sprite() {
+    AbstractGameObject(int x, int y, int zIndex = 0) : sprite(), zIndex(zIndex) {
         sprite.setPosition(x, y);
     }
 
-    void update() {
+    virtual void update() {
         updateTexture();
         window->draw(sprite);
     }
@@ -21,14 +24,26 @@ public:
         return sprite;
     }
 
+    bool getToBeDeleted() const {
+        return toBeDeleted;
+    }
+
+    int getZIndex() const {
+        return zIndex;
+    }
+
 };
 
 class AbstractBlock : public AbstractGameObject {
 public:
-    AbstractBlock(int x, int y) : AbstractGameObject(x, y) {}
+    AbstractBlock(int x, int y) : AbstractGameObject(x, y, ZIndex::BLOCK) {}
+
+    const FloatRect getRect() const {
+        return sprite.getGlobalBounds();
+    }
 };
 
 class AbstractBackgroundBlock : public AbstractGameObject {
 public:
-    AbstractBackgroundBlock(int x, int y) : AbstractGameObject(x, y) {}
+    AbstractBackgroundBlock(int x, int y) : AbstractGameObject(x, y, ZIndex::BACKGROUND) {}
 };

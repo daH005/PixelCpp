@@ -144,13 +144,16 @@
     <ClInclude Include="counters.hpp" />
     <ClInclude Include="direction.hpp" />
     <ClInclude Include="dirt.hpp" />
+    <ClInclude Include="heart.hpp" />
     <ClInclude Include="images.hpp" />
     <ClInclude Include="ladder.hpp" />
     <ClInclude Include="levelManager.hpp" />
     <ClInclude Include="map.hpp" />
     <ClInclude Include="mapBackground.hpp" />
     <ClInclude Include="player.hpp" />
+    <ClInclude Include="spike.hpp" />
     <ClInclude Include="window.hpp" />
+    <ClInclude Include="zIndex.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

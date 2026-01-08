@@ -3,10 +3,13 @@
 
 class AbstractInteractingWithPlayerGameObject : public AbstractGameObject {
 protected:
-    Player& player;
+    // ”казатель вместо ссылки позвол€ет удал€ть объект через vector::erase.
+    // Ёто св€зано с тем, что при ссылке удал€етс€ operator= у этого типа, что не даЄт произвести удаление,
+    // поскольку при удалении из вектора, все элементы правее удал€емого  ќѕ»–”ё“—я через этот удалЄнный оператор ¬Ћ≈¬ќ.
+    Player* player;
 
     void handleCollisionWithPlayer() {
-        if (!sprite.getGlobalBounds().intersects(player.getSprite().getGlobalBounds())) {
+        if (!sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds())) {
             return;
         }
 
@@ -18,9 +21,9 @@ protected:
     }
 
 public:
-    AbstractInteractingWithPlayerGameObject(int x, int y, Player& player) : AbstractGameObject(x, y), player(player) {}
+    AbstractInteractingWithPlayerGameObject(int x, int y, Player* player, int zIndex = 0) : AbstractGameObject(x, y, zIndex), player(player) {}
 
-    void update() {
+    virtual void update() override {
         handleCollisionWithPlayer();
         AbstractGameObject::update();
     }

@@ -7,7 +7,7 @@
 
 class Dirt : public AbstractBlock {
 protected:
-    static int currentGrassIndex;
+    inline static int currentGrassIndex = 0;
     Sprite grassSprite;
 
     Direction direction;
@@ -39,7 +39,7 @@ public:
         grassSprite.setPosition(x, y);
     }
 
-    void update() {
+    virtual void update() override {
         AbstractBlock::update();
         window->draw(grassSprite);
     }
@@ -48,7 +48,6 @@ public:
         currentGrassIndex = 0;
     }
 };
-int Dirt::currentGrassIndex = 0;
 
 class BackgroundDirt : public AbstractBackgroundBlock {
 public:

@@ -21,7 +21,7 @@ public:
         sprite.setPosition(0, y);
     }
 
-    void update() {
+    void update() override {
         float x = min((-camera.getView().getCenter().x + halfW) * SMOOTH, 0.f);
         sprite.setPosition(x, sprite.getPosition().y);
         AbstractGameObject::update();

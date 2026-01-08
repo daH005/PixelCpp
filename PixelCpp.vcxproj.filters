@@ -77,5 +77,14 @@
     <ClInclude Include="cloudManager.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="spike.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="heart.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="zIndex.hpp">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

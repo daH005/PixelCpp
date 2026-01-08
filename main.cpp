@@ -4,7 +4,7 @@ int main()
 {
 
     Font font;
-    font.loadFromFile(Config::FONTS_PATH + "/pixel.ttf");
+    font.loadFromFile(config::FONTS_PATH + "/pixel.ttf");
 
     Text fpsText;
     fpsText.setFont(font);

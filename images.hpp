@@ -14,7 +14,7 @@ vector<Texture> loadTexturesFromDirectory(string basePath) {
     int i = 0;
     while (true) {
         Texture currentTexture;
-        currentPath = Config::IMAGES_PATH + "/" + basePath + "/" + to_string(i) + ".png";
+        currentPath = config::IMAGES_PATH + "/" + basePath + "/" + to_string(i) + ".png";
         if (!currentTexture.loadFromFile(currentPath)) {
             break;
         }
@@ -32,7 +32,7 @@ vector<Texture> loadTexturesFromDirectory(string basePath) {
 
 Texture loadTexture(string basePath) {
     Texture texture;
-    if (!texture.loadFromFile(Config::IMAGES_PATH + "/" + basePath + ".png")) {
+    if (!texture.loadFromFile(config::IMAGES_PATH + "/" + basePath + ".png")) {
         throw runtime_error("Texture " + basePath + " was not found!");
     }
     return texture;
@@ -55,7 +55,10 @@ namespace images {
 
     const Texture ladder = loadTexture("ladder");
 
+    const vector<Texture> heart = loadTexturesFromDirectory("heart/as_item");
     const vector<Texture> coin = loadTexturesFromDirectory("coin");
+
+    const Texture spike = loadTexture("spike");
 
     const vector<Texture> playerStand = loadTexturesFromDirectory("player/default/stand");
     const vector<Texture> playerGo = loadTexturesFromDirectory("player/default/go");

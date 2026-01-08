@@ -2,7 +2,7 @@
 
 using namespace std;
 
-namespace Config {
+namespace config {
 
     const string WINDOW_TITLE = "Pixel";
     const int WINDOW_HEIGHT = 720;

@@ -17,4 +17,4 @@ RenderWindow* createWindow(int h, string title, int maxFps) {
     return window;
 }
 
-RenderWindow* window = createWindow(Config::WINDOW_HEIGHT, Config::WINDOW_TITLE, Config::MAX_FPS);
+RenderWindow* window = createWindow(config::WINDOW_HEIGHT, config::WINDOW_TITLE, config::MAX_FPS);

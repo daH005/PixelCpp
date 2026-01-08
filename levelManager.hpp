@@ -35,7 +35,7 @@ public:
         int i = 0;
         string currentPath;
         while (true) {
-            currentPath = Config::LEVELS_PATH + "/" + to_string(i) + ".json";
+            currentPath = config::LEVELS_PATH + "/" + to_string(i) + ".json";
             try {
                 levels.push_back(readJsonFile(currentPath));
             }

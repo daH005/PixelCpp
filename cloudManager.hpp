@@ -10,15 +10,13 @@ mt19937 gen(rd());
 
 class Cloud : public AbstractGameObject {
 protected:
-    static int currentImageIndex;
+    inline static int currentImageIndex = 0;
 
     uniform_int_distribution<> xRandomizer = uniform_int_distribution<>(0, window->getSize().x);
     uniform_int_distribution<> yRandomizer = uniform_int_distribution<>(0, 300);
     uniform_real_distribution<> speedRandomizer = uniform_real_distribution<>(0.01f, 0.05f);
     float xVel = speedRandomizer(gen);
-
-    bool toDelete = false;
-    int xToDelete = window->getSize().x;
+    int xToBeDeleted = window->getSize().x;
 
     void initImage() {
         sprite.setTexture(images::clouds[currentImageIndex]);
@@ -42,19 +40,14 @@ public:
         sprite.setPosition(x, yRandomizer(gen));
     }
 
-    void update() {
+    void update() override {
         sprite.move(xVel, 0);
-        if (sprite.getGlobalBounds().left > xToDelete) {
-            toDelete = true;
+        if (sprite.getGlobalBounds().left > xToBeDeleted) {
+            toBeDeleted = true;
         }
         AbstractGameObject::update();
     }
-
-    bool getToDelete() {
-        return toDelete;
-    }
 };
-int Cloud::currentImageIndex = 0;
 
 class CloudManager {
 protected:
@@ -84,7 +77,7 @@ protected:
     void updateClouds() {
         for (auto it = clouds.begin(); it != clouds.end(); ) {
             it->update();
-            if (it->getToDelete()) {
+            if (it->getToBeDeleted()) {
                 it = clouds.erase(it);
             }
             else {

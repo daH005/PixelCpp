@@ -3,12 +3,11 @@
 
 class Coin : public AbstractInteractingWithPlayerGameObject {
 protected:
-
-    vector<Texture> textures = images::coin;
+    inline static const vector<Texture> textures = images::coin;
     FrameCounter anim = FrameCounter(textures.size(), 0.3);
 
     void _handleCollisionWithPlayer() override {
-
+        toBeDeleted = true;
     }
 
     void updateTexture() override {
@@ -17,5 +16,5 @@ protected:
     }
 
 public:
-    Coin(int x, int y, Player& player) : AbstractInteractingWithPlayerGameObject(x, y, player) {}
+    Coin(int x, int y, Player* player) : AbstractInteractingWithPlayerGameObject(x, y, player) {}
 };

@@ -5,11 +5,11 @@ class Ladder : public AbstractInteractingWithPlayerGameObject {
 protected:
 
     void _handleCollisionWithPlayer() override {
-        player.setAsOnLadder();
+        player->setAsOnLadder();
     }
 
 public:
-    Ladder(int x, int y, Player& player) : AbstractInteractingWithPlayerGameObject(x, y, player) {
+    Ladder(int x, int y, Player* player) : AbstractInteractingWithPlayerGameObject(x, y, player) {
         sprite.setTexture(images::ladder);
     }
 };

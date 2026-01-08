@@ -6,25 +6,29 @@
 
 class Player : public AbstractGameObject {
 protected:
-    float SPEED = 5;
-    float GRAVITY = 1;
-    float JUMP_POWER = -15;
+    inline static const float SPEED = 5;
+    inline static const float GRAVITY = 1;
+    inline static const float JUMP_POWER = -15;
+    inline static const short MAX_HP = 3;
 
+    short hp = MAX_HP;
     float xvel = 0;
     float yvel = 0;
     bool onGround = false;
     Direction direction = Direction::RIGHT;
     bool onLadder = false;
 
-    vector<AbstractBlock>& blocks;
+    vector<FloatRect>& blockRects;
 
-    vector<Texture> standTextures = images::playerStand;
-    vector<Texture> goTextures = images::playerGo;
-    vector<Texture> goVerticalTextures = images::playerGoVertical;
+    inline static const vector<Texture> standTextures = images::playerStand;
+    inline static const vector<Texture> goTextures = images::playerGo;
+    inline static const vector<Texture> goVerticalTextures = images::playerGoVertical;
 
     FrameCounter standAnim = FrameCounter(standTextures.size(), 1);
     FrameCounter goAnim = FrameCounter(goTextures.size(), 0.2);
     FrameCounter goVerticalAnim = FrameCounter(goVerticalTextures.size(), 0.2);
+
+    TimeCounter godModTimeCounter = TimeCounter(3);
 
     void updateXvel() {
         xvel = 0;
@@ -77,10 +81,8 @@ protected:
     }
 
     void handleCollisionWithBlocks(int _xvel, int _yvel) {
-        FloatRect rect;
-        for (AbstractBlock& block : blocks) {
-            rect = block.getSprite().getGlobalBounds();
-            handleCollisionWithRect(_xvel, _yvel, rect);
+        for (FloatRect& blockRect : blockRects) {
+            handleCollisionWithRect(_xvel, _yvel, blockRect);
         }
     }
 
@@ -137,23 +139,56 @@ protected:
     }
 
 public:
-    Player(vector<AbstractBlock>& blocks) : AbstractGameObject(0, 0), blocks(blocks) {}
+    Player(vector<FloatRect>& blockRects) : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT), blockRects(blockRects) {}
 
     void reset(int x, int y) {
         sprite.setPosition(x, y);
+        hp = MAX_HP;
     }
 
-    void update() {
+    void update() override {
         updateXvel();
         updateYvel();
         updateRectXY();
         AbstractGameObject::update();
 
         onLadder = false;
+        godModTimeCounter.next();
     }
 
     void setAsOnLadder() {
         onLadder = true;
+    }
+
+    float getXvel() const {
+        return xvel;
+    }
+
+    float getYvel() const {
+        return yvel;
+    }
+
+    short getMaxHP() const {
+        return MAX_HP;
+    }
+
+    short getHP() const {
+        return hp;
+    }
+
+    bool addHP() {
+        if (hp < MAX_HP) {
+            hp++;
+            return true;
+        }
+        return false;
+    }
+    
+    void hit() {
+        if (!godModTimeCounter.isWorking()) {
+            hp--;
+            godModTimeCounter.restart();
+        }
     }
 
 };

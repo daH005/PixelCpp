@@ -9,7 +9,7 @@ protected:
 
 public:
     TimeCounter(float duration = 0) : duration(duration) {
-        maxCount = duration * Config::MAX_FPS;
+        maxCount = duration * config::MAX_FPS;
     }
 
     void restart() {
