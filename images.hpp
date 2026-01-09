@@ -43,6 +43,8 @@ namespace images {
     const Texture mapBackground = loadTexture("backgrounds/map");
     const Texture sun = loadTexture("sun");
     const vector<Texture> clouds = loadTexturesFromDirectory("clouds");
+    
+    const vector<Texture> trees = loadTexturesFromDirectory("trees");
 
     const Texture dirt = loadTexture("dirt/default");
     const Texture leftDirt = loadTexture("dirt/left");
@@ -59,6 +61,9 @@ namespace images {
     const vector<Texture> coin = loadTexturesFromDirectory("coin");
 
     const Texture spike = loadTexture("spike");
+
+    const Texture water = loadTexture("water/default");
+    const Texture topWater = loadTexture("water/top");
 
     const vector<Texture> playerStand = loadTexturesFromDirectory("player/default/stand");
     const vector<Texture> playerGo = loadTexturesFromDirectory("player/default/go");

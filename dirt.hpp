@@ -49,9 +49,9 @@ public:
     }
 };
 
-class BackgroundDirt : public AbstractBackgroundBlock {
+class BackgroundDirt : public AbstractBackground {
 public:
-    BackgroundDirt(int x, int y) : AbstractBackgroundBlock(x, y) {
+    BackgroundDirt(int x, int y) : AbstractBackground(x, y) {
         sprite.setTexture(images::backgroundDirt);
     }
 };

@@ -4,7 +4,7 @@
 
 class MapBackground : public AbstractGameObject {
 protected:
-    const float SMOOTH = 0.03f;
+    inline static const float SMOOTH = 0.03f;
 
     Camera& camera;
     int y;

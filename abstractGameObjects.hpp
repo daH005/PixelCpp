@@ -43,7 +43,7 @@ public:
     }
 };
 
-class AbstractBackgroundBlock : public AbstractGameObject {
+class AbstractBackground : public AbstractGameObject {
 public:
-    AbstractBackgroundBlock(int x, int y) : AbstractGameObject(x, y, ZIndex::BACKGROUND) {}
+    AbstractBackground(int x, int y) : AbstractGameObject(x, y, ZIndex::BACKGROUND) {}
 };

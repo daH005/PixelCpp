@@ -17,6 +17,7 @@ protected:
     bool onGround = false;
     Direction direction = Direction::RIGHT;
     bool onLadder = false;
+    bool inWater = false;
 
     vector<FloatRect>& blockRects;
 
@@ -59,17 +60,23 @@ protected:
         }
         onGround = false;
 
-        if (!onLadder) {
+        if (!onLadder && !inWater) {
             yvel += GRAVITY;
         }
-        else if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Space)) {
-            yvel = -SPEED;
-        }
-        else if (Keyboard::isKeyPressed(Keyboard::S)) {
-            yvel = SPEED;
+        else if (inWater) {
+            yvel = GRAVITY;
         }
         else {
             yvel = 0;
+        }
+
+        if (onLadder || inWater) {
+            if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Space)) {
+                yvel = -SPEED;
+            }
+            else if (Keyboard::isKeyPressed(Keyboard::S)) {
+                yvel = SPEED;
+            }
         }
     }
 
@@ -153,11 +160,16 @@ public:
         AbstractGameObject::update();
 
         onLadder = false;
+        inWater = false;
         godModTimeCounter.next();
     }
 
     void setAsOnLadder() {
         onLadder = true;
+    }
+
+    void setAsInWater() {
+        inWater = true;
     }
 
     float getXvel() const {

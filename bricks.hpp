@@ -9,9 +9,9 @@ public:
     }
 };
 
-class BackgroundBricks : public AbstractBackgroundBlock {
+class BackgroundBricks : public AbstractBackground {
 public:
-    BackgroundBricks(int x, int y) : AbstractBackgroundBlock(x, y) {
+    BackgroundBricks(int x, int y) : AbstractBackground(x, y) {
         sprite.setTexture(images::backgroundBricks);
     }
 };

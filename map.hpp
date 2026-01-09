@@ -4,8 +4,10 @@
 
 #include "player.hpp"
 #include "dirt.hpp"
+#include "tree.hpp"
 #include "bricks.hpp"
 #include "ladder.hpp"
+#include "water.hpp"
 #include "coin.hpp"
 #include "heart.hpp"
 #include "spike.hpp"
@@ -20,6 +22,7 @@ namespace map_object_types {
 
     const string DIRT = "Dirt";
     const string BACKGROUND_DIRT = "BackgroundDirt";
+    const string TREE = "Tree";
 
     const string BRICKS = "Bricks";
     const string BACKGROUND_BRICKS = "BackgroundBricks";
@@ -28,6 +31,7 @@ namespace map_object_types {
     const string HEART = "Heart";
 
     const string LADDER = "Ladder";
+    const string WATER = "Water";
     const string SPIKE = "Spike";
 
 };
@@ -140,6 +144,14 @@ protected:
             }
             else if (t == map_object_types::SPIKE) {
                 objects.push_back(new Spike(x, y, &player));
+
+            }
+            else if (t == map_object_types::WATER) {
+                objects.push_back(new Water(x, y, &player, args["is_top"]));
+
+            }
+            else if (t == map_object_types::TREE) {
+                objects.push_back(new Tree(x, y, args["image_index"]));
 
             }
 

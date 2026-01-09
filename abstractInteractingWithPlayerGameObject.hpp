@@ -16,9 +16,7 @@ protected:
         _handleCollisionWithPlayer();
     }
 
-    virtual void _handleCollisionWithPlayer() {
-
-    }
+    virtual void _handleCollisionWithPlayer() {}
 
 public:
     AbstractInteractingWithPlayerGameObject(int x, int y, Player* player, int zIndex = 0) : AbstractGameObject(x, y, zIndex), player(player) {}

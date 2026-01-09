@@ -152,6 +152,8 @@
     <ClInclude Include="mapBackground.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="spike.hpp" />
+    <ClInclude Include="tree.hpp" />
+    <ClInclude Include="water.hpp" />
     <ClInclude Include="window.hpp" />
     <ClInclude Include="zIndex.hpp" />
   </ItemGroup>
