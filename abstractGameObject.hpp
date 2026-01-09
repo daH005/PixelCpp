@@ -1,6 +1,6 @@
 #pragma once
 #include "window.hpp"
-#include "zIndex.hpp";
+#include "zIndex.hpp"
 
 class AbstractGameObject {
 protected:
@@ -8,7 +8,7 @@ protected:
     bool toBeDeleted = false;
     int zIndex;
 
-    void virtual updateTexture() {}
+    virtual void updateTexture() {}
 
 public:
     AbstractGameObject(int x, int y, int zIndex = 0) : sprite(), zIndex(zIndex) {
@@ -32,18 +32,4 @@ public:
         return zIndex;
     }
 
-};
-
-class AbstractBlock : public AbstractGameObject {
-public:
-    AbstractBlock(int x, int y) : AbstractGameObject(x, y, ZIndex::BLOCK) {}
-
-    const FloatRect getRect() const {
-        return sprite.getGlobalBounds();
-    }
-};
-
-class AbstractBackground : public AbstractGameObject {
-public:
-    AbstractBackground(int x, int y) : AbstractGameObject(x, y, ZIndex::BACKGROUND) {}
 };

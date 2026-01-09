@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 
-#include "abstractGameObjects.hpp"
+#include "abstractGameObject.hpp"
 #include "images.hpp"
 #include "counters.hpp"
 

@@ -134,7 +134,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="abstractGameObjects.hpp" />
+    <ClInclude Include="abstractBackground.hpp" />
+    <ClInclude Include="abstractBlock.hpp" />
+    <ClInclude Include="abstractGameObject.hpp" />
     <ClInclude Include="abstractInteractingWithPlayerGameObject.hpp" />
     <ClInclude Include="bricks.hpp" />
     <ClInclude Include="camera.hpp" />

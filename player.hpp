@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractGameObjects.hpp"
+#include "abstractGameObject.hpp"
 #include "images.hpp"
 #include "counters.hpp"
 #include "direction.hpp"
@@ -19,7 +19,7 @@ protected:
     bool onLadder = false;
     bool inWater = false;
 
-    vector<FloatRect>& blockRects;
+    vector<FloatRect> blockRects;
 
     inline static const vector<Texture> standTextures = images::playerStand;
     inline static const vector<Texture> goTextures = images::playerGo;
@@ -146,11 +146,19 @@ protected:
     }
 
 public:
-    Player(vector<FloatRect>& blockRects) : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT), blockRects(blockRects) {}
+    Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT) {}
 
-    void reset(int x, int y) {
-        sprite.setPosition(x, y);
+    void reset() {
         hp = MAX_HP;
+        blockRects.clear();
+    }
+
+    void setPosition(int x, int y) {
+        sprite.setPosition(x, y);
+    }
+
+    void addBlockRect(const FloatRect& rect) {
+        blockRects.push_back(rect);
     }
 
     void update() override {

@@ -32,7 +32,7 @@
     <ClInclude Include="window.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="abstractGameObjects.hpp">
+    <ClInclude Include="abstractGameObject.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
     <ClInclude Include="player.hpp">
@@ -91,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="images.hpp">
       <Filter>Исходные файлы\common</Filter>
+    </ClInclude>
+    <ClInclude Include="abstractBlock.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="abstractBackground.hpp">
+      <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

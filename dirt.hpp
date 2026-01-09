@@ -1,7 +1,6 @@
 #pragma once
-#include <iostream>
-
-#include "abstractGameObjects.hpp"
+#include "abstractBlock.hpp"
+#include "abstractBackground.hpp"
 #include "images.hpp"
 #include "direction.hpp"
 
@@ -34,12 +33,12 @@ protected:
     }
 
 public:
-    Dirt(int x, int y, Direction direction = Direction::NO, bool withGrass = false) : AbstractBlock(x, y), direction(direction), withGrass(withGrass) {
+    Dirt(int x, int y, Player* player, Direction direction = Direction::NO, bool withGrass = false) : AbstractBlock(x, y, player), direction(direction), withGrass(withGrass) {
         initImage();
         grassSprite.setPosition(x, y);
     }
 
-    virtual void update() override {
+    void update() override {
         AbstractBlock::update();
         window->draw(grassSprite);
     }

@@ -1,4 +1,5 @@
 #pragma once
+#include "abstractGameObject.hpp"
 #include "player.hpp"
 
 class AbstractInteractingWithPlayerGameObject : public AbstractGameObject {

@@ -1,6 +1,6 @@
 #pragma once
 #include "levelManager.hpp"
-#include "abstractGameObjects.hpp"
+#include "abstractGameObject.hpp"
 
 #include "player.hpp"
 #include "dirt.hpp"
@@ -73,16 +73,10 @@ public:
 
 class Map {
 protected:
-    inline static const string BLOCK_TYPES[] = { map_object_types::DIRT, map_object_types::BRICKS };
-    inline static const size_t BLOCK_TYPES_SIZE = sizeof(BLOCK_TYPES) / sizeof(BLOCK_TYPES[0]);
-    inline static const string* BLOCK_TYPES_END = BLOCK_TYPES + BLOCK_TYPES_SIZE;
-    inline static const int BLOCK_W = 40;
-
     LevelManager& levelManager;
 
     vector<AbstractGameObject*> objects;
-    vector<FloatRect> blockRects;
-    Player player = Player(blockRects);
+    Player player = Player();
 
     int w;
     int h;
@@ -95,7 +89,8 @@ protected:
     PlayerHP_HUD hpHUD = PlayerHP_HUD(player);
 
     void createObjects(const json& level) {
-        clearAllVectors();
+        clearObjects();
+        player.reset();
 
         Dirt::resetGrass();
         string t;
@@ -107,7 +102,7 @@ protected:
             y = args["y"];
 
             if (t == map_object_types::PLAYER) {
-                player.reset(x, y);
+                player.setPosition(x, y);
 
             }
             else if (t == map_object_types::DIRT) {
@@ -118,12 +113,11 @@ protected:
                 else {
                     direction = (int)direction;
                 }
-                Dirt* dirt = new Dirt(x, y, direction, args["grass_enabled"]);
-                objects.push_back(dirt);
+                objects.push_back(new Dirt(x, y, &player, direction, args["grass_enabled"]));
 
             }
             else if (t == map_object_types::BRICKS) {
-                objects.push_back(new Bricks(x, y));
+                objects.push_back(new Bricks(x, y, &player));
 
             }
             else if (t == map_object_types::BACKGROUND_BRICKS) {
@@ -155,21 +149,17 @@ protected:
 
             }
 
-            if (find(BLOCK_TYPES, BLOCK_TYPES_END, t) != BLOCK_TYPES_END) {
-                blockRects.push_back(FloatRect(x, y, BLOCK_W, BLOCK_W));
-            }
         }
 
         sortObjectsByZIndex();
     }
 
-    void clearAllVectors() {
+    void clearObjects() {
         for (auto ptr : objects) {
             delete ptr;
         }
         objects.clear();
         objects.push_back(&player);
-        blockRects.clear();
     }
 
     void sortObjectsByZIndex() {

@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractGameObjects.hpp"
+#include "abstractGameObject.hpp"
 #include "images.hpp"
 
 class Tree : public AbstractBackground {
