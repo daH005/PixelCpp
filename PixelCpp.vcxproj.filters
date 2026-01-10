@@ -98,5 +98,14 @@
     <ClInclude Include="abstractBackground.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
+    <ClInclude Include="web.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="abstractEnemy.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="shield.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

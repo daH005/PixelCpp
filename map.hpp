@@ -1,15 +1,18 @@
 #pragma once
 #include "levelManager.hpp"
 #include "abstractGameObject.hpp"
+#include "images.hpp"
 
 #include "player.hpp"
 #include "dirt.hpp"
 #include "tree.hpp"
+#include "web.hpp"
 #include "bricks.hpp"
 #include "ladder.hpp"
 #include "water.hpp"
 #include "coin.hpp"
 #include "heart.hpp"
+#include "shield.hpp"
 #include "spike.hpp"
 
 #include "camera.hpp"
@@ -23,12 +26,14 @@ namespace map_object_types {
     const string DIRT = "Dirt";
     const string BACKGROUND_DIRT = "BackgroundDirt";
     const string TREE = "Tree";
+    const string WEB = "Web";
 
     const string BRICKS = "Bricks";
     const string BACKGROUND_BRICKS = "BackgroundBricks";
     
     const string COIN = "Coin";
     const string HEART = "Heart";
+    const string SHIELD = "Shield";
 
     const string LADDER = "Ladder";
     const string WATER = "Water";
@@ -48,15 +53,20 @@ protected:
     Player& player;
 
     vector<Sprite> hpSprites;
+    Sprite shieldSprite;
 
     void initSprites() {
         int heartW = images::heart[0].getSize().x;
-        for (short i = 0; i < player.getMaxHP(); ++i) {
+        short i;
+        for (i = 0; i < player.getMaxHP(); ++i) {
             Sprite hpSprite;
             hpSprite.setTexture(images::heart[0]);
             hpSprite.setPosition(i * heartW, 0);
             hpSprites.push_back(hpSprite);
         }
+
+        shieldSprite.setTexture(images::shield[2]);
+        shieldSprite.setPosition(i * heartW, 0);
     }
 
 public:
@@ -67,6 +77,9 @@ public:
     void update() {
         for (short i = 0; i < player.getHP(); ++i) {
             window->draw(hpSprites[i]);
+        }
+        if (player.getHasShield()) {
+            window->draw(shieldSprite);
         }
     }
 };
@@ -136,6 +149,9 @@ protected:
                 objects.push_back(new Heart(x, y, &player));
 
             }
+            else if (t == map_object_types::SHIELD) {
+                objects.push_back(new Shield(x, y, &player));
+            }
             else if (t == map_object_types::SPIKE) {
                 objects.push_back(new Spike(x, y, &player));
 
@@ -146,6 +162,10 @@ protected:
             }
             else if (t == map_object_types::TREE) {
                 objects.push_back(new Tree(x, y, args["image_index"]));
+
+            }
+            else if (t == map_object_types::WEB) {
+                objects.push_back(new Web(x, y, (Direction)args["direction"]));
 
             }
 

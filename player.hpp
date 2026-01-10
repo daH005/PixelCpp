@@ -18,6 +18,7 @@ protected:
     Direction direction = Direction::RIGHT;
     bool onLadder = false;
     bool inWater = false;
+    bool hasShield = false;
 
     vector<FloatRect> blockRects;
 
@@ -145,6 +146,15 @@ protected:
         }
     }
 
+    void _hit() {
+        if (hasShield) {
+            hasShield = false;
+        }
+        else {
+            hp--;
+        }
+    }
+
 public:
     Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT) {}
 
@@ -196,6 +206,10 @@ public:
         return hp;
     }
 
+    bool getHasShield() const {
+        return hasShield;
+    }
+
     bool addHP() {
         if (hp < MAX_HP) {
             hp++;
@@ -203,10 +217,18 @@ public:
         }
         return false;
     }
+
+    bool addShield() {
+        if (!hasShield) {
+            hasShield = true;
+            return true;
+        }
+        return false;
+    }
     
     void hit() {
         if (!godModTimeCounter.isWorking()) {
-            hp--;
+            _hit();
             godModTimeCounter.restart();
         }
     }

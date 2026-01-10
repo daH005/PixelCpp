@@ -45,6 +45,7 @@ namespace images {
     const vector<Texture> clouds = loadTexturesFromDirectory("clouds");
     
     const vector<Texture> trees = loadTexturesFromDirectory("trees");
+    const Texture web = loadTexture("web");
 
     const Texture dirt = loadTexture("dirt/default");
     const Texture leftDirt = loadTexture("dirt/left");
@@ -59,6 +60,7 @@ namespace images {
 
     const vector<Texture> heart = loadTexturesFromDirectory("heart/as_item");
     const vector<Texture> coin = loadTexturesFromDirectory("coin");
+    const vector<Texture> shield = loadTexturesFromDirectory("shield");
 
     const Texture spike = loadTexture("spike");
 
