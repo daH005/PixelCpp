@@ -157,7 +157,12 @@ protected:
 
             }
             else if (t == map_object_types::WATER) {
-                objects.push_back(new Water(x, y, &player, args["is_top"]));
+                if ((bool)args["is_top"]) {
+                    objects.push_back(new TopWater(x, y, &player));
+                }
+                else {
+                    objects.push_back(new Water(x, y, &player));
+                }
 
             }
             else if (t == map_object_types::TREE) {

@@ -1,35 +1,41 @@
 #pragma once
 #include "abstractInteractingWithPlayerGameObject.hpp"
 
-class Water : public AbstractInteractingWithPlayerGameObject {
+class AbstractWater : public AbstractInteractingWithPlayerGameObject {
+protected:
+    virtual void _handleCollisionWithPlayer() override {
+        player->setAsInWater();
+    }
+
+public:
+    AbstractWater(int x, int y, Player* player) : AbstractInteractingWithPlayerGameObject(x, y, player, ZIndex::OVERLAY) {}
+
+};
+
+class Water : public AbstractWater {
+public:
+    Water(int x, int y, Player* player) : AbstractWater(x, y, player) {
+        sprite.setTexture(images::water);
+    }
+
+};
+
+class TopWater : public AbstractWater {
 protected:
 
-    inline static const float PLAYER_Y_VEL_TO_TREMBLE = 2;
-    inline static const float TREMBLING_SPEED_DOWN = 1.5;  // Должно быть кратно TREMBLING_SPEED_UP.
-    inline static const float TREMBLING_SPEED_UP = -0.1;
     inline static const float TREMBLING_DEVIATION = 3;
+    inline static const float TREMBLING_SPEED_UP = -0.1;
 
     int startTremblingY;
     int endTremblingY;
-    bool isTrembling = false;
 
     void _handleCollisionWithPlayer() override {
-        player->setAsInWater();
-        if (player->getYvel() > PLAYER_Y_VEL_TO_TREMBLE) {
-            isTrembling = true;
-        }
+        AbstractWater::_handleCollisionWithPlayer();
+        sprite.setPosition(sprite.getPosition().x, endTremblingY);
     }
 
     void updateTrembling() {
-        if (isTrembling) {
-            if (sprite.getGlobalBounds().top < endTremblingY) {
-                sprite.move(0, TREMBLING_SPEED_DOWN);
-            }
-            else {
-                isTrembling = false;
-            }
-        }
-        else if (sprite.getGlobalBounds().top > startTremblingY) {
+        if (sprite.getGlobalBounds().top > startTremblingY) {
             sprite.move(0, TREMBLING_SPEED_UP);
 
             if (sprite.getGlobalBounds().top < startTremblingY) {
@@ -39,14 +45,9 @@ protected:
     }
 
 public:
-    Water(int x, int y, Player* player, bool isTop = false) : AbstractInteractingWithPlayerGameObject(x, y, player, ZIndex::OVERLAY), startTremblingY(y) {
+    TopWater(int x, int y, Player* player) : AbstractWater(x, y, player), startTremblingY(y) {
         endTremblingY = startTremblingY + TREMBLING_DEVIATION;
-        if (isTop) {
-            sprite.setTexture(images::topWater);
-        }
-        else {
-            sprite.setTexture(images::water);
-        }
+        sprite.setTexture(images::topWater);
     }
 
     void update() override {
