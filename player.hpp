@@ -23,15 +23,18 @@ protected:
 
     vector<FloatRect> blockRects;
 
-    inline static const vector<Texture> standTextures = images::playerStand;
-    inline static const vector<Texture> goTextures = images::playerGo;
-    inline static const vector<Texture> goVerticalTextures = images::playerGoVertical;
+    const vector<Texture>* standTextures = &images::playerStand;
+    const vector<Texture>* goTextures = &images::playerGo;
+    const vector<Texture>* goVerticalTextures = &images::playerGoVertical;
 
-    FrameCounter standAnim = FrameCounter(standTextures.size(), 1);
-    FrameCounter goAnim = FrameCounter(goTextures.size(), 0.2);
-    FrameCounter goVerticalAnim = FrameCounter(goVerticalTextures.size(), 0.2);
+    FrameCounter standAnim = FrameCounter(standTextures->size(), 1);
+    FrameCounter goAnim = FrameCounter(goTextures->size(), 0.2);
+    FrameCounter goVerticalAnim = FrameCounter(goVerticalTextures->size(), 0.2);
 
-    TimeCounter godModTimeCounter = TimeCounter(3);
+    TimeCounter godModeTimeCounter = TimeCounter(1.2);
+    TimeCounter flashTimeCounter = TimeCounter(0.1);
+    int beWhiteFrameCount = convertSecondsToFrameCount(0.5);
+    bool isInvisible = false;
 
     void updateXvel() {
         xvel = 0;
@@ -123,17 +126,28 @@ protected:
     }
 
     void updateTexture() override {
-        if (onLadder) {
-            sprite.setTexture(goVerticalTextures[goVerticalAnim.getCurrentIndex()]);
-        }
-        else if (xvel > 0) {
-            sprite.setTexture(goTextures[goAnim.getCurrentIndex()]);
-        }
-        else if (xvel < 0) {
-            sprite.setTexture(goTextures[goAnim.getCurrentIndex()]);
+        if (godModeTimeCounter.delta() <= beWhiteFrameCount) {
+            goTextures = &images::whitePlayerGo;
+            standTextures = &images::whitePlayerStand;
+            goVerticalTextures = &images::whitePlayerGoVertical;
         }
         else {
-            sprite.setTexture(standTextures[standAnim.getCurrentIndex()]);
+            goTextures = &images::playerGo;
+            standTextures = &images::playerStand;
+            goVerticalTextures = &images::playerGoVertical;
+        }
+
+        if (onLadder) {
+            sprite.setTexture(goVerticalTextures->at(goVerticalAnim.getCurrentIndex()));
+        }
+        else if (xvel > 0) {
+            sprite.setTexture(goTextures->at(goAnim.getCurrentIndex()));
+        }
+        else if (xvel < 0) {
+            sprite.setTexture(goTextures->at(goAnim.getCurrentIndex()));
+        }
+        else {
+            sprite.setTexture(standTextures->at(standAnim.getCurrentIndex()));
         }
 
         if (yvel != 0 && onLadder) {
@@ -147,12 +161,20 @@ protected:
         }
     }
 
-    void _hit() {
-        if (hasShield) {
-            hasShield = false;
+    void draw() override {
+        if (godModeTimeCounter.isWorking()) {
+            if (!flashTimeCounter.isWorking()) {
+                isInvisible = !isInvisible;
+                flashTimeCounter.restart();
+            }
+            flashTimeCounter.next();
+
+            if (!isInvisible) {
+                AbstractGameObject::draw();
+            }
         }
         else {
-            hp--;
+            AbstractGameObject::draw();
         }
     }
 
@@ -180,7 +202,7 @@ public:
 
         onLadder = false;
         inWater = false;
-        godModTimeCounter.next();
+        godModeTimeCounter.next();
     }
 
     void setAsOnLadder() {
@@ -227,10 +249,29 @@ public:
         return false;
     }
     
-    void hit() {
-        if (!godModTimeCounter.isWorking()) {
-            _hit();
-            godModTimeCounter.restart();
+    void hit(float xPush = 0, float yPush = 0, int enemyCenter = NULL) {
+        if (!godModeTimeCounter.isWorking()) {
+        if (hasShield) {
+            hasShield = false;
+        }
+        else {
+            hp--;
+        }
+            godModeTimeCounter.restart();
+        }
+
+        if (yPush > 0) {
+            yvel = -yPush;
+        }
+
+        if (xPush > 0 && enemyCenter != NULL) {
+            int thisCenter = sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2;
+            if (thisCenter < enemyCenter) {
+                xvel = -xPush;
+            }
+            else if (thisCenter > enemyCenter) {
+                xvel = xPush;
+            }
         }
     }
 

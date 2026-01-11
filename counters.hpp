@@ -1,6 +1,10 @@
 #pragma once
 #include "config.hpp";
 
+float convertSecondsToFrameCount(float seconds) {
+    return seconds * config::MAX_FPS;
+}
+
 class TimeCounter {
 protected:
     float duration;
@@ -9,7 +13,7 @@ protected:
 
 public:
     TimeCounter(float duration = 0) : duration(duration) {
-        maxCount = duration * config::MAX_FPS;
+        maxCount = convertSecondsToFrameCount(duration);
     }
 
     void restart() {

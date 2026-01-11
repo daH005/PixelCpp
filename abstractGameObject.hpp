@@ -10,6 +10,10 @@ protected:
 
     virtual void updateTexture() {}
 
+    virtual void draw() {
+        window->draw(sprite);
+    }
+
 public:
     AbstractGameObject(int x, int y, int zIndex = 0) : sprite(), zIndex(zIndex) {
         sprite.setPosition(x, y);
@@ -17,7 +21,7 @@ public:
 
     virtual void update() {
         updateTexture();
-        window->draw(sprite);
+        draw();
     }
 
     const Sprite& getSprite() const {
