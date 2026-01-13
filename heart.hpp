@@ -4,7 +4,7 @@
 class Heart : public AbstractInteractingWithPlayerGameObject {
 protected:
     inline static const vector<Texture> textures = images::heart;
-    FrameCounter anim = FrameCounter(textures.size(), 0.6);
+    FrameIndexCyclicalCounter anim = FrameIndexCyclicalCounter(textures.size(), 0.6);
 
     void _handleCollisionWithPlayer() override {
         if (player->addHP()) {

@@ -53,7 +53,7 @@ class CloudManager {
 protected:
     const int INITIAL_CLOUD_COUNT = 50;
 
-    TimeCounter spawnTimeCounter = TimeCounter(20);
+    FPSBasedTimer spawnFPSBasedTimer = FPSBasedTimer(20);
     vector<Cloud> clouds;
 
     void createInitialClouds() {
@@ -67,10 +67,10 @@ protected:
     }
 
     void spawnCloudOncePerTime() {
-        spawnTimeCounter.next();
-        if (!spawnTimeCounter.isWorking()) {
+        spawnFPSBasedTimer.next();
+        if (!spawnFPSBasedTimer.isWorking()) {
             createCloud();
-            spawnTimeCounter.restart();
+            spawnFPSBasedTimer.restart();
         }
     }
 

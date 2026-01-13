@@ -4,7 +4,7 @@
 class Coin : public AbstractInteractingWithPlayerGameObject {
 protected:
     inline static const vector<Texture> textures = images::coin;
-    FrameCounter anim = FrameCounter(textures.size(), 0.3);
+    FrameIndexCyclicalCounter anim = FrameIndexCyclicalCounter(textures.size(), 0.3);
 
     void _handleCollisionWithPlayer() override {
         toBeDeleted = true;

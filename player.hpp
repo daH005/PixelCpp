@@ -27,12 +27,12 @@ protected:
     const vector<Texture>* goTextures = &images::playerGo;
     const vector<Texture>* goVerticalTextures = &images::playerGoVertical;
 
-    FrameCounter standAnim = FrameCounter(standTextures->size(), 1);
-    FrameCounter goAnim = FrameCounter(goTextures->size(), 0.2);
-    FrameCounter goVerticalAnim = FrameCounter(goVerticalTextures->size(), 0.2);
+    FrameIndexCyclicalCounter standAnim = FrameIndexCyclicalCounter(standTextures->size(), 1);
+    FrameIndexCyclicalCounter goAnim = FrameIndexCyclicalCounter(goTextures->size(), 0.2);
+    FrameIndexCyclicalCounter goVerticalAnim = FrameIndexCyclicalCounter(goVerticalTextures->size(), 0.2);
 
-    TimeCounter godModeTimeCounter = TimeCounter(1.2);
-    TimeCounter flashTimeCounter = TimeCounter(0.1);
+    FPSBasedTimer godModeFPSBasedTimer = FPSBasedTimer(1.2);
+    FPSBasedTimer flashFPSBasedTimer = FPSBasedTimer(0.1);
     int beWhiteFrameCount = convertSecondsToFrameCount(0.5);
     bool isInvisible = false;
 
@@ -126,7 +126,7 @@ protected:
     }
 
     void updateTexture() override {
-        if (godModeTimeCounter.delta() <= beWhiteFrameCount) {
+        if (godModeFPSBasedTimer.delta() <= beWhiteFrameCount) {
             goTextures = &images::whitePlayerGo;
             standTextures = &images::whitePlayerStand;
             goVerticalTextures = &images::whitePlayerGoVertical;
@@ -162,12 +162,12 @@ protected:
     }
 
     void draw() override {
-        if (godModeTimeCounter.isWorking()) {
-            if (!flashTimeCounter.isWorking()) {
+        if (godModeFPSBasedTimer.isWorking()) {
+            if (!flashFPSBasedTimer.isWorking()) {
                 isInvisible = !isInvisible;
-                flashTimeCounter.restart();
+                flashFPSBasedTimer.restart();
             }
-            flashTimeCounter.next();
+            flashFPSBasedTimer.next();
 
             if (!isInvisible) {
                 AbstractGameObject::draw();
@@ -202,7 +202,7 @@ public:
 
         onLadder = false;
         inWater = false;
-        godModeTimeCounter.next();
+        godModeFPSBasedTimer.next();
     }
 
     void setAsOnLadder() {
@@ -250,14 +250,14 @@ public:
     }
     
     void hit(float xPush = 0, float yPush = 0, int enemyCenter = NULL) {
-        if (!godModeTimeCounter.isWorking()) {
+        if (!godModeFPSBasedTimer.isWorking()) {
         if (hasShield) {
             hasShield = false;
         }
         else {
             hp--;
         }
-            godModeTimeCounter.restart();
+            godModeFPSBasedTimer.restart();
         }
 
         if (yPush > 0) {

@@ -50,13 +50,18 @@ public:
 
 class PlayerHP_HUD {
 protected:
+    inline static const int heartW = images::heart[0].getSize().x;
+    inline static const vector<Texture> heartHitTextures = images::heartHit;
+
     Player& player;
+    short playerHpBackup = player.getHP();
+    FrameIndexFiniteCounter heartHitCounter = FrameIndexFiniteCounter(heartHitTextures.size(), 0.07f);
 
     vector<Sprite> hpSprites;
+    Sprite hittedHeart;
     Sprite shieldSprite;
 
     void initSprites() {
-        int heartW = images::heart[0].getSize().x;
         short i;
         for (i = 0; i < player.getMaxHP(); ++i) {
             Sprite hpSprite;
@@ -69,18 +74,41 @@ protected:
         shieldSprite.setPosition(i * heartW, 0);
     }
 
+    void startHeartHitAnim() {
+        hittedHeart.setPosition(player.getHP() * heartW, 0);
+        heartHitCounter.restart();
+    }
+
+    void drawHeartHitAnim() {
+        hittedHeart.setTexture(heartHitTextures[heartHitCounter.getCurrentIndex()]);
+        window->draw(hittedHeart);
+        heartHitCounter.next();
+    }
+
 public:
     PlayerHP_HUD(Player& player) : player(player) {
         initSprites();
     }
 
     void update() {
-        for (short i = 0; i < player.getHP(); ++i) {
+        short actualPlayerHP = player.getHP();
+        for (short i = 0; i < actualPlayerHP; ++i) {
             window->draw(hpSprites[i]);
         }
+
+        if (actualPlayerHP < playerHpBackup) {
+            startHeartHitAnim();
+        }
+
+        if (!heartHitCounter.getIsEnded()) {
+            drawHeartHitAnim();
+        }
+
         if (player.getHasShield()) {
             window->draw(shieldSprite);
         }
+
+        playerHpBackup = actualPlayerHP;
     }
 };
 

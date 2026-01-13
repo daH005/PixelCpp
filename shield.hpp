@@ -4,7 +4,7 @@
 class Shield : public AbstractInteractingWithPlayerGameObject {
 protected:
     inline static const vector<Texture> textures = images::shield;
-    FrameCounter anim = FrameCounter(textures.size(), 0.2);
+    FrameIndexCyclicalCounter anim = FrameIndexCyclicalCounter(textures.size(), 0.2);
 
     void _handleCollisionWithPlayer() override {
         if (player->addShield()) {

@@ -58,6 +58,7 @@ namespace images {
 
     const Texture ladder = loadTexture("ladder");
 
+    const vector<Texture> heartHit = loadTexturesFromDirectory("heart/hit");
     const vector<Texture> heart = loadTexturesFromDirectory("heart/as_item");
     const vector<Texture> coin = loadTexturesFromDirectory("coin");
     const vector<Texture> shield = loadTexturesFromDirectory("shield");
