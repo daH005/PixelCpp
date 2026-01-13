@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClInclude Include="abstractBackground.hpp" />
     <ClInclude Include="abstractBlock.hpp" />
-    <ClInclude Include="abstractEnemy.hpp" />
+    <ClInclude Include="abstractEnemies.hpp" />
     <ClInclude Include="abstractGameObject.hpp" />
     <ClInclude Include="abstractInteractingWithPlayerGameObject.hpp" />
     <ClInclude Include="bricks.hpp" />
@@ -155,6 +155,7 @@
     <ClInclude Include="mapBackground.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="shield.hpp" />
+    <ClInclude Include="slug.hpp" />
     <ClInclude Include="spike.hpp" />
     <ClInclude Include="tree.hpp" />
     <ClInclude Include="water.hpp" />

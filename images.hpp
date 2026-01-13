@@ -77,4 +77,9 @@ namespace images {
     const vector<Texture> whitePlayerGo = loadTexturesFromDirectory("player/white_default/go");
     const vector<Texture> whitePlayerGoVertical = loadTexturesFromDirectory("player/white_default/go_vertical");
 
+    const vector<Texture> slugGo = loadTexturesFromDirectory("slug/go");
+    const vector<Texture> slugDeath = loadTexturesFromDirectory("slug/death");
+
+    const vector<Texture> batGo = loadTexturesFromDirectory("bat");
+
 }

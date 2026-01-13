@@ -8,6 +8,10 @@ protected:
     bool toBeDeleted = false;
     int zIndex;
 
+    int getCenter() {
+        return sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2;
+    }
+
     virtual void updateTexture() {}
 
     virtual void draw() {

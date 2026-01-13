@@ -14,6 +14,7 @@
 #include "heart.hpp"
 #include "shield.hpp"
 #include "spike.hpp"
+#include "slug.hpp"
 
 #include "camera.hpp"
 #include "mapBackground.hpp"
@@ -38,6 +39,8 @@ namespace map_object_types {
     const string LADDER = "Ladder";
     const string WATER = "Water";
     const string SPIKE = "Spike";
+
+    const string SLUG = "Slug";
 
 };
 
@@ -156,14 +159,14 @@ protected:
 
             }
             else if (t == map_object_types::DIRT) {
-                json& direction = args["direction"];
-                if (direction.is_null()) {
-                    direction = 0;
+                Direction direction;
+                if (args["direction"].is_null()) {
+                    direction = Direction::NO;
                 }
                 else {
-                    direction = (int)direction;
+                    direction = args["direction"];
                 }
-                objects.push_back(new Dirt(x, y, &player, direction, args["grass_enabled"]));
+                objects.push_back(new Dirt(x, y, &player, direction, (bool)args["grass_enabled"]));
 
             }
             else if (t == map_object_types::BRICKS) {
@@ -203,12 +206,15 @@ protected:
 
             }
             else if (t == map_object_types::TREE) {
-                objects.push_back(new Tree(x, y, args["image_index"]));
+                objects.push_back(new Tree(x, y, (int)args["image_index"]));
 
             }
             else if (t == map_object_types::WEB) {
                 objects.push_back(new Web(x, y, (Direction)args["direction"]));
 
+            }
+            else if (t == map_object_types::SLUG) {
+                objects.push_back(new Slug(x, y, &player, (int)args["start_x"], (int)args["end_x"]));
             }
 
         }

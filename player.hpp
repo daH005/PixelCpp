@@ -15,6 +15,7 @@ protected:
     short hp = MAX_HP;
     float xvel = 0;
     float yvel = 0;
+    float currentXpush;
     bool onGround = false;
     Direction direction = Direction::RIGHT;
     bool onLadder = false;
@@ -37,6 +38,12 @@ protected:
     bool isInvisible = false;
 
     void updateXvel() {
+        if (currentXpush != 0) {
+            xvel = currentXpush;
+            decreaseXpush();
+            return;
+        }
+
         xvel = 0;
         if (Keyboard::isKeyPressed(Keyboard::D)) {
             xvel = SPEED;
@@ -51,6 +58,20 @@ protected:
                 flipSprite(-1);
             }
             direction = Direction::LEFT;
+        }
+    }
+
+    void decreaseXpush() {
+        if (abs(currentXpush) <= SPEED) {
+            currentXpush = 0;
+        }
+        else {
+            if (currentXpush > 0) {
+                currentXpush -= SPEED;
+            }
+            else {
+                currentXpush += SPEED;
+            }
         }
     }
 
@@ -233,6 +254,10 @@ public:
         return hasShield;
     }
 
+    bool isInGodMode() const {
+        return godModeFPSBasedTimer.isWorking();
+    }
+
     bool addHP() {
         if (hp < MAX_HP) {
             hp++;
@@ -249,14 +274,15 @@ public:
         return false;
     }
     
+    // xPush должно быть передано только положительно, знак определяется по enemyCenter, yPush - конкретный знак требуется.
     void hit(float xPush = 0, float yPush = 0, int enemyCenter = NULL) {
         if (!godModeFPSBasedTimer.isWorking()) {
-        if (hasShield) {
-            hasShield = false;
-        }
-        else {
-            hp--;
-        }
+            if (hasShield) {
+                hasShield = false;
+            }
+            else {
+                hp--;
+            }
             godModeFPSBasedTimer.restart();
         }
 
@@ -265,14 +291,18 @@ public:
         }
 
         if (xPush > 0 && enemyCenter != NULL) {
-            int thisCenter = sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2;
+            int thisCenter = getCenter();
             if (thisCenter < enemyCenter) {
-                xvel = -xPush;
+                currentXpush = -xPush;
             }
             else if (thisCenter > enemyCenter) {
-                xvel = xPush;
+                currentXpush = xPush;
             }
         }
+    }
+
+    void jump(float power) {
+        yvel = power;
     }
 
 };

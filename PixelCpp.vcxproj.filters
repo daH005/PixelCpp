@@ -101,10 +101,13 @@
     <ClInclude Include="web.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
-    <ClInclude Include="abstractEnemy.hpp">
+    <ClInclude Include="abstractEnemies.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
     <ClInclude Include="shield.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="slug.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
   </ItemGroup>
