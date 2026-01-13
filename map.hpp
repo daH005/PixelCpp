@@ -58,20 +58,26 @@ protected:
     FrameIndexFiniteCounter heartHitCounter = FrameIndexFiniteCounter(heartHitTextures.size(), 0.07f);
 
     vector<Sprite> hpSprites;
+    vector<Sprite> deadHpSprites;
     Sprite hittedHeart;
     Sprite shieldSprite;
 
     void initSprites() {
         short i;
         for (i = 0; i < player.getMaxHP(); ++i) {
-            Sprite hpSprite;
-            hpSprite.setTexture(images::heart[0]);
-            hpSprite.setPosition(i * heartW, 0);
-            hpSprites.push_back(hpSprite);
+            createHpSpriteAndAddToVector(images::heart[0], i, hpSprites);
+            createHpSpriteAndAddToVector(images::deadHeart, i, deadHpSprites);
         }
 
         shieldSprite.setTexture(images::shield[2]);
         shieldSprite.setPosition(i * heartW, 0);
+    }
+
+    void createHpSpriteAndAddToVector(const Texture& texture, short i, vector<Sprite>& sprites) {
+        Sprite sprite;
+        sprite.setTexture(texture);
+        sprite.setPosition(i * heartW, 0);
+        sprites.push_back(sprite);
     }
 
     void startHeartHitAnim() {
@@ -94,6 +100,9 @@ public:
         short actualPlayerHP = player.getHP();
         for (short i = 0; i < actualPlayerHP; ++i) {
             window->draw(hpSprites[i]);
+        }
+        for (short i = actualPlayerHP; i < player.getMaxHP(); ++i) {
+            window->draw(deadHpSprites[i]);
         }
 
         if (actualPlayerHP < playerHpBackup) {
@@ -263,5 +272,10 @@ public:
 
         window->setView(window->getDefaultView());
         hpHUD.update();
+
+        // Не забыть убрать). Сделано, чтобы игра не крашилась.
+        if (player.getHP() <= 0) {
+            player.addHP();
+        }
     }
 };
