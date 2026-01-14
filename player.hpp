@@ -1,10 +1,11 @@
 #pragma once
 #include "abstractGameObject.hpp"
+#include "gameObjectWithDirectionMixin.hpp"
 #include "images.hpp"
 #include "counters.hpp"
 #include "direction.hpp"
 
-class Player : public AbstractGameObject {
+class Player : public AbstractGameObject, public GameObjectWithDirectionMixin {
 protected:
     inline static const float SPEED = 5;
     inline static const float GRAVITY = 1;
@@ -17,7 +18,6 @@ protected:
     float yvel = 0;
     float currentXpush;
     bool onGround = false;
-    Direction direction = Direction::RIGHT;
     bool onLadder = false;
     bool inWater = false;
     bool hasShield = false;
@@ -47,17 +47,11 @@ protected:
         xvel = 0;
         if (Keyboard::isKeyPressed(Keyboard::D)) {
             xvel = SPEED;
-            if (direction == Direction::LEFT) {
-                flipSprite(1);
-            }
-            direction = Direction::RIGHT;
+            flipSprite(Direction::RIGHT);
         }
         else if (Keyboard::isKeyPressed(Keyboard::A)) {
             xvel = -SPEED;
-            if (direction == Direction::RIGHT) {
-                flipSprite(-1);
-            }
-            direction = Direction::LEFT;
+            flipSprite(Direction::LEFT);
         }
     }
 
@@ -73,11 +67,6 @@ protected:
                 currentXpush += SPEED;
             }
         }
-    }
-
-    void flipSprite(int sign) {
-        sprite.setPosition(sprite.getPosition().x - sign * sprite.getGlobalBounds().width, sprite.getPosition().y);
-        sprite.setScale(sign * 1.f, 1.f);
     }
 
     void updateYvel() {
@@ -200,7 +189,7 @@ protected:
     }
 
 public:
-    Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT) {}
+    Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT), GameObjectWithDirectionMixin(Player::sprite) {}
 
     void reset() {
         hp = MAX_HP;

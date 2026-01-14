@@ -50,6 +50,7 @@ protected:
 public:
     FrameIndexCyclicalCounter(int count, float delay) : count(count), delay(delay) {
         timer = FPSBasedTimer(delay);
+        timer.restart();
     }
 
     int getCurrentIndex() const {

@@ -110,5 +110,11 @@
     <ClInclude Include="slug.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
+    <ClInclude Include="bat.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObjectWithDirectionMixin.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

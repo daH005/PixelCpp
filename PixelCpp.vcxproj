@@ -139,6 +139,7 @@
     <ClInclude Include="abstractEnemies.hpp" />
     <ClInclude Include="abstractGameObject.hpp" />
     <ClInclude Include="abstractInteractingWithPlayerGameObject.hpp" />
+    <ClInclude Include="bat.hpp" />
     <ClInclude Include="bricks.hpp" />
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="cloudManager.hpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="counters.hpp" />
     <ClInclude Include="direction.hpp" />
     <ClInclude Include="dirt.hpp" />
+    <ClInclude Include="gameObjectWithDirectionMixin.hpp" />
     <ClInclude Include="heart.hpp" />
     <ClInclude Include="images.hpp" />
     <ClInclude Include="ladder.hpp" />

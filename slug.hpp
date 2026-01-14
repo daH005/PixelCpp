@@ -27,6 +27,7 @@ protected:
     }
 
     void prepareRectForDeathAnim() {
+        flipSprite(Direction::RIGHT);  // Ќужно вернуть спрайт в изначальное положение дл€ корректного отображени€ текстур смерти.
         int newX = getCenter() - deathTextures[0].getSize().x / 2;
         sprite.setTexture(deathTextures[0], true);
         sprite.setPosition(newX, sprite.getPosition().y);
