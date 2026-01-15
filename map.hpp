@@ -143,32 +143,25 @@ protected:
 
     PlayerHP_HUD hpHUD = PlayerHP_HUD(player);
 
-    void createObjects(const json& level) {
+    void createObjects(Level& level) {
         clearObjects();
         player.reset();
 
         Dirt::resetGrass();
         string t;
         int x, y;
-        for (const json& ob : level["objects"]) {
-            t = ob["type"];
-            json args = ob["args"];
-            x = args["x"];
-            y = args["y"];
+        for (LevelObject& ob : level.getObjects()) {
+            t = ob.getType();
+            LevelObjectArgs& args = ob.getArgs();
+            x = args.getX();
+            y = args.getY();
 
             if (t == map_object_types::PLAYER) {
                 player.setPosition(x, y);
 
             }
             else if (t == map_object_types::DIRT) {
-                Direction direction;
-                if (args["direction"].is_null()) {
-                    direction = Direction::NO;
-                }
-                else {
-                    direction = args["direction"];
-                }
-                objects.push_back(new Dirt(x, y, &player, direction, (bool)args["grass_enabled"]));
+                objects.push_back(new Dirt(x, y, &player, args.getDirection(), args.getGrassEnabled()));
 
             }
             else if (t == map_object_types::BRICKS) {
@@ -193,13 +186,14 @@ protected:
             }
             else if (t == map_object_types::SHIELD) {
                 objects.push_back(new Shield(x, y, &player));
+
             }
             else if (t == map_object_types::SPIKE) {
                 objects.push_back(new Spike(x, y, &player));
 
             }
             else if (t == map_object_types::WATER) {
-                if ((bool)args["is_top"]) {
+                if (args.getIsTop()) {
                     objects.push_back(new TopWater(x, y, &player));
                 }
                 else {
@@ -208,18 +202,20 @@ protected:
 
             }
             else if (t == map_object_types::TREE) {
-                objects.push_back(new Tree(x, y, (int)args["image_index"]));
+                objects.push_back(new Tree(x, y, args.getImageIndex()));
 
             }
             else if (t == map_object_types::WEB) {
-                objects.push_back(new Web(x, y, (Direction)args["direction"]));
+                objects.push_back(new Web(x, y, args.getDirection()));
 
             }
             else if (t == map_object_types::SLUG) {
-                objects.push_back(new Slug(x, y, &player, (int)args["start_x"], (int)args["end_x"]));
+                objects.push_back(new Slug(x, y, &player, args.getStartX(), args.getEndX()));
+
             }
             else if (t == map_object_types::BAT) {
-                objects.push_back(new Bat(x, y, &player, (int)args["start_x"], (int)args["end_x"]));
+                objects.push_back(new Bat(x, y, &player, args.getStartX(), args.getEndX()));
+
             }
 
         }
@@ -258,11 +254,11 @@ public:
     Map(LevelManager& levelManager) : levelManager(levelManager) {}
 
     void reset() {
-        const json& level = levelManager.getCurrentLevelJson();
+        Level& level = levelManager.getCurrentLevel();
         createObjects(level);
 
-        w = level["w"];
-        h = level["h"];
+        w = level.getW();
+        h = level.getH();
 
         camera.reset(w, h);
         camera.quickMove();

@@ -2,28 +2,120 @@
 #include <fstream>
 #include <sstream>
 
+#include "direction.hpp"
 #include "json.hpp"
 #include "config.hpp"
 
 using json = nlohmann::json;
 
-json readJsonFile(string path) {
-    std::ifstream file(path);
-    if (!file.is_open()) {
-        throw runtime_error("The file is not found!");
+class LevelObjectArgs {
+protected:
+    json data;
+
+public:
+    LevelObjectArgs(json data) : data(data) {}
+
+    int getX() const {
+        return data["x"];
     }
 
-    std::stringstream buffer;
-    buffer << file.rdbuf();
-    std::string content = buffer.str();
+    int getY() const {
+        return data["y"];
+    }
 
-    return json::parse(content);
-}
+    Direction getDirection() const {
+        Direction direction;
+        if (data["direction"].is_null()) {
+            direction = Direction::NO;
+        }
+        else {
+            direction = data["direction"];
+        }
+        return direction;
+    }
+
+    bool getGrassEnabled() const {
+        return data["grass_enabled"];
+    }
+
+    int getImageIndex() const {
+        return data["image_index"];
+    }
+
+    bool getIsTop() const {
+        return data["is_top"];
+    }
+
+    int getStartX() const {
+        return data["start_x"];
+    }
+
+    int getEndX() const {
+        return data["end_x"];
+    }
+
+};
+
+class LevelObject {
+protected:
+    json data;
+    LevelObjectArgs args;
+    
+public:
+    LevelObject(json data) : data(data), args(data["args"]) {}
+
+    string getType() {
+        return data["type"];
+    }
+
+    LevelObjectArgs& getArgs() {
+        return args;
+    }
+
+};
+
+class Level {
+protected:
+    json data;
+    vector<LevelObject> objects;
+
+public:
+    Level() {}
+
+    void loadFromFile(string path) {
+        std::ifstream file(path);
+        if (!file.is_open()) {
+            throw runtime_error("The file is not found!");
+        }
+
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        std::string content = buffer.str();
+
+        data = json::parse(content);
+        for (json& ob : data["objects"]) {
+            objects.push_back(LevelObject(ob));
+        }
+    }
+
+    int getW() const {
+        return data["w"];
+    }
+
+    int getH() const {
+        return data["h"];
+    }
+
+    vector<LevelObject>& getObjects() {
+        return objects;
+    }
+
+};
 
 class LevelManager {
 protected:
     int currentLevelIndex = 0;
-    vector<json> levels;
+    vector<Level> levels;
 
 public:
     LevelManager() {}
@@ -37,7 +129,9 @@ public:
         while (true) {
             currentPath = config::LEVELS_PATH + "/" + to_string(i) + ".json";
             try {
-                levels.push_back(readJsonFile(currentPath));
+                Level level;
+                level.loadFromFile(currentPath);
+                levels.push_back(level);
             }
             catch (const std::runtime_error& e) {
                 break;
@@ -63,7 +157,7 @@ public:
         }
     }
 
-    const json& getCurrentLevelJson() const {
+    Level& getCurrentLevel() {
         return levels[currentLevelIndex];
     }
 
