@@ -8,7 +8,7 @@ protected:
     inline static const vector<Texture> deathTextures = images::slugDeath;
 
     FrameIndexCyclicalCounter goAnim = FrameIndexCyclicalCounter(goTextures.size(), 0.1);
-    FrameIndexFiniteCounter deathAnim = FrameIndexFiniteCounter(deathTextures.size(), 0.2);
+    FrameIndexFiniteCounter deathAnim = FrameIndexFiniteCounter(deathTextures.size(), 0.15);
 
     void _handleCollisionWithPlayer() override {
         float playerYvel = player->getYvel();
