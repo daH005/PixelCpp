@@ -27,7 +27,7 @@ protected:
             flipSpriteToPlayerDirectionAndSetIndents();
         }
         else if (attackAnim.getCurrentIndex() == ATTACK_ANIM_INDEX_TO_HIT) {
-            AbstractXPatrolEnemy::_handleCollisionWithPlayer();
+            attack();
         }
     }
 
@@ -47,6 +47,12 @@ protected:
             flipSprite(Direction::RIGHT);
             attackIndents = attackAnimRightXIndents;
         }
+    }
+
+    void attack() {
+        player->hit();
+        player->pushY(yPush);
+        player->pushX(xPush * direction);
     }
 
     void move() override {

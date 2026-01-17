@@ -270,9 +270,8 @@ public:
         }
         return false;
     }
-    
-    // xPush должно быть передано только положительно, знак определяется по enemyCenter, yPush - конкретный знак требуется.
-    void hit(float xPush = 0, float yPush = 0, int enemyCenter = NULL) {
+
+    void hit() {
         if (!godModeFPSBasedTimer.isWorking()) {
             if (hasShield) {
                 hasShield = false;
@@ -282,18 +281,22 @@ public:
             }
             godModeFPSBasedTimer.restart();
         }
+    }
 
-        if (yPush > 0) {
-            yvel = -yPush;
+    void pushY(float value) {
+        yvel = value;
+    }
+
+    void pushX(float value) {
+        currentXpush = value;
+    }
+
+    void pushX(float absValue, int enemyCenter) {
+        if (getCenter() < enemyCenter) {
+            pushX(-absValue);
         }
-
-        if (xPush > 0 && enemyCenter != NULL) {
-            if (getCenter() < enemyCenter) {
-                currentXpush = -xPush;
-            }
-            else {
-                currentXpush = xPush;
-            }
+        else {
+            pushX(absValue);
         }
     }
 

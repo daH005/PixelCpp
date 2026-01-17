@@ -13,7 +13,9 @@ protected:
     float xvel = speed;
 
     virtual void _handleCollisionWithPlayer() override {
-        player->hit(xPush, yPush, getCenter());
+        player->hit();
+        player->pushY(yPush);
+        player->pushX(xPush, getCenter());
     }
 
     virtual void move() {
