@@ -82,4 +82,7 @@ namespace images {
 
     const vector<Texture> batGo = loadTexturesFromDirectory("bat");
 
+    const vector<Texture> skeletonGo = loadTexturesFromDirectory("skeleton/go");
+    const vector<Texture> skeletonAttack = loadTexturesFromDirectory("skeleton/attack");
+
 }

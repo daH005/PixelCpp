@@ -116,5 +116,8 @@
     <ClInclude Include="gameObjectWithDirectionMixin.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
+    <ClInclude Include="skeleton.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

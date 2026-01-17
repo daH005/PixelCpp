@@ -10,13 +10,18 @@ protected:
     Sprite& _sprite;  // Подчеркивание нужно для устранения конфликта имён.
     Direction direction;
 
+    // Предполагается, что по умолчанию текстуры направлены вправую сторону!
     void flipSprite(Direction _direction) {
         if (_direction == direction) {
             return;
         }
-        _sprite.setPosition(_sprite.getPosition().x - _direction * _sprite.getGlobalBounds().width, _sprite.getPosition().y);
         _sprite.setScale(_direction * 1.f, 1.f);
         direction = _direction;
+        updateOrigin();
+    }
+    
+    void updateOrigin() {
+        _sprite.setOrigin(_sprite.getLocalBounds().width * (direction == Direction::LEFT ? 1.f : 0), 0);
     }
 
 public:

@@ -8,10 +8,6 @@ protected:
     bool toBeDeleted = false;
     int zIndex;
 
-    int getCenter() {
-        return sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2;
-    }
-
     virtual void updateTexture() {}
 
     virtual void draw() {
@@ -21,6 +17,10 @@ protected:
 public:
     AbstractGameObject(int x, int y, int zIndex = 0) : sprite(), zIndex(zIndex) {
         sprite.setPosition(x, y);
+    }
+
+    int getCenter() const {
+        return sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2;
     }
 
     virtual void update() {

@@ -157,6 +157,7 @@
     <ClInclude Include="mapBackground.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="shield.hpp" />
+    <ClInclude Include="skeleton.hpp" />
     <ClInclude Include="slug.hpp" />
     <ClInclude Include="spike.hpp" />
     <ClInclude Include="tree.hpp" />

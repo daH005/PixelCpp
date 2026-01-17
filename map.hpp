@@ -16,6 +16,7 @@
 #include "spike.hpp"
 #include "slug.hpp"
 #include "bat.hpp"
+#include "skeleton.hpp"
 
 #include "camera.hpp"
 #include "mapBackground.hpp"
@@ -43,6 +44,7 @@ namespace map_object_types {
 
     const string SLUG = "Slug";
     const string BAT = "Bat";
+    const string SKELETON = "Skeleton";
 
 };
 
@@ -215,6 +217,10 @@ protected:
             }
             else if (t == map_object_types::BAT) {
                 objects.push_back(new Bat(x, y, &player, args.getStartX(), args.getEndX()));
+
+            }
+            else if (t == map_object_types::SKELETON) {
+                objects.push_back(new Skeleton(x, y, &player, args.getStartX(), args.getEndX()));
 
             }
 

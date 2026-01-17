@@ -119,8 +119,7 @@ protected:
             xvel = 0;
         }
         else if (_xvel < 0) {
-            // Необходимо прибавить ширину игрока, поскольку реальная Х координата изменена из-за преобразования с setScale.
-            pos.x = blockRect.left + blockRect.width + sprite.getGlobalBounds().width;
+            pos.x = blockRect.left + blockRect.width;
             xvel = 0;
         }
         else if (_yvel > 0) {
@@ -280,11 +279,10 @@ public:
         }
 
         if (xPush > 0 && enemyCenter != NULL) {
-            int thisCenter = getCenter();
-            if (thisCenter < enemyCenter) {
+            if (getCenter() < enemyCenter) {
                 currentXpush = -xPush;
             }
-            else if (thisCenter > enemyCenter) {
+            else {
                 currentXpush = xPush;
             }
         }
