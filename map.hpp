@@ -147,7 +147,7 @@ protected:
 
     void createObjects(Level& level) {
         clearObjects();
-        player.reset();
+        player.reset(level.getW());
 
         Dirt::resetGrass();
         string t;

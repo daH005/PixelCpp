@@ -21,6 +21,7 @@ protected:
     bool onLadder = false;
     bool inWater = false;
     bool hasShield = false;
+    int mapW;
 
     vector<FloatRect> blockRects;
 
@@ -98,8 +99,15 @@ protected:
     void updateRectXY() {
         sprite.move(xvel, 0);
         handleCollisionWithBlocks(xvel, 0);
+        handleMapEdges();
         sprite.move(0, yvel);
         handleCollisionWithBlocks(0, yvel);
+    }
+
+    void handleMapEdges() {
+        if (sprite.getGlobalBounds().left < 0 || sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > mapW) {
+            sprite.move(-xvel, 0);
+        }
     }
 
     void handleCollisionWithBlocks(int _xvel, int _yvel) {
@@ -190,9 +198,10 @@ protected:
 public:
     Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT), GameObjectWithDirectionMixin(Player::sprite) {}
 
-    void reset() {
+    void reset(int _mapW) {
         hp = MAX_HP;
         blockRects.clear();
+        mapW = _mapW;
     }
 
     void setPosition(int x, int y) {
