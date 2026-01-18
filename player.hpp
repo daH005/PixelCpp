@@ -38,6 +38,12 @@ protected:
     int beWhiteFrameCount = convertSecondsToFrameCount(0.5);
     bool isInvisible = false;
 
+    inline static const int STUN_SPRITE_Y_INDENT = 20;
+    inline static const vector<Texture> stunTextures = images::stun;
+    FrameIndexCyclicalCounter stunAnim = FrameIndexCyclicalCounter(stunTextures.size(), 0.1);
+    Sprite stunSprite;
+    bool isStunned = false;
+
     void updateXvel() {
         if (currentXpush != 0) {
             xvel = currentXpush;
@@ -53,6 +59,10 @@ protected:
         else if (Keyboard::isKeyPressed(Keyboard::A)) {
             xvel = -SPEED;
             flipSprite(Direction::LEFT);
+        }
+
+        if (isStunned) {
+            xvel = 0;
         }
     }
 
@@ -71,7 +81,7 @@ protected:
     }
 
     void updateYvel() {
-        if (Keyboard::isKeyPressed(Keyboard::Space) && onGround) {
+        if (Keyboard::isKeyPressed(Keyboard::Space) && onGround && !isStunned) {
             yvel = JUMP_POWER;
         }
         onGround = false;
@@ -86,7 +96,7 @@ protected:
             yvel = 0;
         }
 
-        if (onLadder || inWater) {
+        if (onLadder || inWater && !isStunned) {
             if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Space)) {
                 yvel = -SPEED;
             }
@@ -193,6 +203,17 @@ protected:
         else {
             AbstractGameObject::draw();
         }
+        drawStun();
+    }
+
+    void drawStun() {
+        if (isStunned) {
+            stunSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - STUN_SPRITE_Y_INDENT);
+            stunSprite.setTexture(stunTextures[stunAnim.getCurrentIndex()]);
+            stunAnim.next();
+
+            window->draw(stunSprite);
+        }
     }
 
 public:
@@ -221,6 +242,9 @@ public:
         onLadder = false;
         inWater = false;
         godModeFPSBasedTimer.next();
+        if (!godModeFPSBasedTimer.isWorking()) {
+            isStunned = false;
+        }
     }
 
     void setAsOnLadder() {
@@ -281,6 +305,11 @@ public:
             }
             godModeFPSBasedTimer.restart();
         }
+    }
+
+    void hitWithStun() {
+        isStunned = true;
+        hit();
     }
 
     void pushY(float value) {

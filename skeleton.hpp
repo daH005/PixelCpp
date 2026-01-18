@@ -50,7 +50,7 @@ protected:
     }
 
     void attack() {
-        player->hit();
+        player->hitWithStun();
         player->pushY(yPush);
         player->pushX(xPush * direction);
     }

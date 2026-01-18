@@ -12,6 +12,11 @@ protected:
     Direction direction;
     bool withGrass;
 
+    void draw() override {
+        AbstractBlock::draw();
+        window->draw(grassSprite);
+    }
+
     void initImage() {
         if (direction == Direction::LEFT) {
             sprite.setTexture(images::leftDirt);
@@ -36,11 +41,6 @@ public:
     Dirt(int x, int y, Player* player, Direction direction = Direction::NO, bool withGrass = false) : AbstractBlock(x, y, player), direction(direction), withGrass(withGrass) {
         initImage();
         grassSprite.setPosition(x, y);
-    }
-
-    void update() override {
-        AbstractBlock::update();
-        window->draw(grassSprite);
     }
 
     static void resetGrass() {
