@@ -7,14 +7,14 @@
 class Dirt : public AbstractBlock {
 protected:
     inline static int currentGrassIndex = 0;
-    Sprite grassSprite;
+    SpriteWrapper grassSprite;
 
     Direction direction;
     bool withGrass;
 
     void draw() override {
         AbstractBlock::draw();
-        window->draw(grassSprite);
+        grassSprite.draw();
     }
 
     void initImage() {

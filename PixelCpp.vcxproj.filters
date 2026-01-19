@@ -101,7 +101,7 @@
     <ClInclude Include="web.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
-    <ClInclude Include="abstractEnemies.hpp">
+    <ClInclude Include="abstractXPatrolEnemy.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
     <ClInclude Include="shield.hpp">
@@ -113,11 +113,17 @@
     <ClInclude Include="bat.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
-    <ClInclude Include="gameObjectWithDirectionMixin.hpp">
-      <Filter>Исходные файлы\ui</Filter>
-    </ClInclude>
     <ClInclude Include="skeleton.hpp">
       <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="spider.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="abstractEnemy.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="spriteWrapper.hpp">
+      <Filter>Исходные файлы\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

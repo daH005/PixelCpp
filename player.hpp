@@ -5,7 +5,7 @@
 #include "counters.hpp"
 #include "direction.hpp"
 
-class Player : public AbstractGameObject, public GameObjectWithDirectionMixin {
+class Player : public AbstractGameObject {
 protected:
     inline static const float SPEED = 5;
     inline static const float GRAVITY = 1;
@@ -41,7 +41,7 @@ protected:
     inline static const int STUN_SPRITE_Y_INDENT = 20;
     inline static const vector<Texture> stunTextures = images::stun;
     FrameIndexCyclicalCounter stunAnim = FrameIndexCyclicalCounter(stunTextures.size(), 0.1);
-    Sprite stunSprite;
+    SpriteWrapper stunSprite;
     bool isStunned = false;
 
     void updateXvel() {
@@ -54,11 +54,11 @@ protected:
         xvel = 0;
         if (Keyboard::isKeyPressed(Keyboard::D)) {
             xvel = SPEED;
-            flipSprite(Direction::RIGHT);
+            sprite.setDirection(Direction::RIGHT);
         }
         else if (Keyboard::isKeyPressed(Keyboard::A)) {
             xvel = -SPEED;
-            flipSprite(Direction::LEFT);
+            sprite.setDirection(Direction::LEFT);
         }
 
         if (isStunned) {
@@ -107,16 +107,16 @@ protected:
     }
 
     void updateRectXY() {
-        sprite.move(xvel, 0);
+        sprite.moveX(xvel);
         handleCollisionWithBlocks(xvel, 0);
         handleMapEdges();
-        sprite.move(0, yvel);
+        sprite.moveY(yvel);
         handleCollisionWithBlocks(0, yvel);
     }
 
     void handleMapEdges() {
-        if (sprite.getGlobalBounds().left < 0 || sprite.getGlobalBounds().left + sprite.getGlobalBounds().width > mapW) {
-            sprite.move(-xvel, 0);
+        if (sprite.getLeft() < 0 || sprite.getRight() > mapW) {
+            sprite.moveX(-xvel);
         }
     }
 
@@ -127,32 +127,37 @@ protected:
     }
 
     void handleCollisionWithRect(int _xvel, int _yvel, FloatRect& blockRect) {
-        if (!blockRect.intersects(sprite.getGlobalBounds())) {
+        if (!sprite.intersects(blockRect)) {
             return;
         }
 
-        Vector2f pos = sprite.getPosition();
+        int newX = sprite.getLeft();
+        int newY = sprite.getTop();
         if (_xvel > 0) {
-            pos.x = blockRect.left - sprite.getGlobalBounds().width;
+            newX = blockRect.left - sprite.getWidth();
             xvel = 0;
         }
         else if (_xvel < 0) {
-            pos.x = blockRect.left + blockRect.width;
+            newX = blockRect.left + blockRect.width;
             xvel = 0;
         }
         else if (_yvel > 0) {
-            pos.y = blockRect.top - sprite.getGlobalBounds().height;
+            newY = blockRect.top - sprite.getHeight();
             yvel = 0;
             onGround = true;
         }
         else if (_yvel < 0) {
-            pos.y = blockRect.top + blockRect.height;
+            newY = blockRect.top + blockRect.height;
             yvel = 0;
         }
-        sprite.setPosition(pos);
+        sprite.setPosition(newX, newY);
     }
 
-    void updateTexture() override {
+    void draw() override {
+        if (isInvisibleForFlashing()) {
+            return;
+        }
+
         if (godModeFPSBasedTimer.delta() <= beWhiteFrameCount) {
             goTextures = &images::whitePlayerGo;
             standTextures = &images::whitePlayerStand;
@@ -186,9 +191,12 @@ protected:
         else {
             standAnim.next();
         }
+
+        AbstractGameObject::draw();
+        drawStun();
     }
 
-    void draw() override {
+    bool isInvisibleForFlashing() {
         if (godModeFPSBasedTimer.isWorking()) {
             if (!flashFPSBasedTimer.isWorking()) {
                 isInvisible = !isInvisible;
@@ -197,27 +205,27 @@ protected:
             flashFPSBasedTimer.next();
 
             if (!isInvisible) {
-                AbstractGameObject::draw();
+                return false;
             }
         }
         else {
-            AbstractGameObject::draw();
+            return false;
         }
-        drawStun();
+        
+        return true;
     }
 
     void drawStun() {
         if (isStunned) {
-            stunSprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - STUN_SPRITE_Y_INDENT);
+            stunSprite.setPosition(sprite.getLeft(), sprite.getTop() - STUN_SPRITE_Y_INDENT);
             stunSprite.setTexture(stunTextures[stunAnim.getCurrentIndex()]);
             stunAnim.next();
-
-            window->draw(stunSprite);
+            stunSprite.draw();
         }
     }
 
 public:
-    Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT), GameObjectWithDirectionMixin(Player::sprite) {}
+    Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT) {}
 
     void reset(int _mapW) {
         hp = MAX_HP;
@@ -321,7 +329,7 @@ public:
     }
 
     void pushX(float absValue, int enemyCenter) {
-        if (getCenter() < enemyCenter) {
+        if (sprite.getCenterX() < enemyCenter) {
             pushX(-absValue);
         }
         else {

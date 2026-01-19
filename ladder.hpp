@@ -4,7 +4,7 @@
 class Ladder : public AbstractInteractingWithPlayerGameObject {
 protected:
 
-    void _handleCollisionWithPlayer() override {
+    void handleCollisionWithPlayerAction() override {
         player->setAsOnLadder();
     }
 

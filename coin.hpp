@@ -6,13 +6,14 @@ protected:
     inline static const vector<Texture> textures = images::coin;
     FrameIndexCyclicalCounter anim = FrameIndexCyclicalCounter(textures.size(), 0.3);
 
-    void _handleCollisionWithPlayer() override {
+    void handleCollisionWithPlayerAction() override {
         toBeDeleted = true;
     }
 
-    void updateTexture() override {
+    void draw() override {
         sprite.setTexture(textures[anim.getCurrentIndex()]);
         anim.next();
+        AbstractInteractingWithPlayerGameObject::draw();
     }
 
 public:

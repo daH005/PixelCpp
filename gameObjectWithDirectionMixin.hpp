@@ -20,6 +20,7 @@ protected:
         updateOrigin();
     }
     
+    // Если персонаж повёрнут влево, то при изменении размеров текстуры последующий вызов updateOrigin строго необходим!
     void updateOrigin() {
         _sprite.setOrigin(_sprite.getLocalBounds().width * (direction == Direction::LEFT ? 1.f : 0), 0);
     }

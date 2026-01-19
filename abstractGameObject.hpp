@@ -1,17 +1,16 @@
 #pragma once
 #include "window.hpp"
 #include "zIndex.hpp"
+#include "spriteWrapper.hpp"
 
 class AbstractGameObject {
 protected:
-    Sprite sprite;
+    SpriteWrapper sprite;
     bool toBeDeleted = false;
     int zIndex;
 
-    virtual void updateTexture() {}
-
     virtual void draw() {
-        window->draw(sprite);
+        sprite.draw();
     }
 
 public:
@@ -19,16 +18,11 @@ public:
         sprite.setPosition(x, y);
     }
 
-    int getCenter() const {
-        return sprite.getGlobalBounds().left + sprite.getGlobalBounds().width / 2;
-    }
-
     virtual void update() {
-        updateTexture();
         draw();
     }
 
-    const Sprite& getSprite() const {
+    const SpriteWrapper& getSprite() const {
         return sprite;
     }
 

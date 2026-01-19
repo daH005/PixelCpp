@@ -4,7 +4,7 @@
 
 class MapBackground : public AbstractGameObject {
 protected:
-    inline static const float SMOOTH = 0.03f;
+    inline static const float SMOOTH = 0.03;
 
     Camera& camera;
     int y;
@@ -13,7 +13,7 @@ protected:
 public:
     MapBackground(Camera& camera) : AbstractGameObject(0, 0), camera(camera) {
         sprite.setTexture(images::mapBackground);
-        y = window->getSize().y - sprite.getGlobalBounds().height;
+        y = window->getSize().y - sprite.getHeight();
         halfW = window->getSize().x / 2;
     }
 
@@ -23,7 +23,7 @@ public:
 
     void update() override {
         float x = min((-camera.getView().getCenter().x + halfW) * SMOOTH, 0.f);
-        sprite.setPosition(x, sprite.getPosition().y);
+        sprite.setLeft(x);
         AbstractGameObject::update();
     }
 

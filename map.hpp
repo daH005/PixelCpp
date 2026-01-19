@@ -17,6 +17,7 @@
 #include "slug.hpp"
 #include "bat.hpp"
 #include "skeleton.hpp"
+#include "spider.hpp"
 
 #include "camera.hpp"
 #include "mapBackground.hpp"
@@ -45,6 +46,7 @@ namespace map_object_types {
     const string SLUG = "Slug";
     const string BAT = "Bat";
     const string SKELETON = "Skeleton";
+    const string SPIDER = "Spider";
 
 };
 
@@ -62,12 +64,12 @@ protected:
 
     Player& player;
     short playerHpBackup = player.getHP();
-    FrameIndexFiniteCounter heartHitCounter = FrameIndexFiniteCounter(heartHitTextures.size(), 0.07f);
+    FrameIndexFiniteCounter heartHitCounter = FrameIndexFiniteCounter(heartHitTextures.size(), 0.07);
 
-    vector<Sprite> hpSprites;
-    vector<Sprite> deadHpSprites;
-    Sprite hittedHeart;
-    Sprite shieldSprite;
+    vector<SpriteWrapper> hpSprites;
+    vector<SpriteWrapper> deadHpSprites;
+    SpriteWrapper hittedHeart;
+    SpriteWrapper shieldSprite;
 
     void initSprites() {
         short i;
@@ -77,24 +79,24 @@ protected:
         }
 
         shieldSprite.setTexture(images::shield[2]);
-        shieldSprite.setPosition(i * heartW, 0);
+        shieldSprite.setLeft(i * heartW);
     }
 
-    void createHpSpriteAndAddToVector(const Texture& texture, short i, vector<Sprite>& sprites) {
-        Sprite sprite;
+    void createHpSpriteAndAddToVector(const Texture& texture, short i, vector<SpriteWrapper>& sprites) {
+        SpriteWrapper sprite;
         sprite.setTexture(texture);
-        sprite.setPosition(i * heartW, 0);
+        sprite.setLeft(i * heartW);
         sprites.push_back(sprite);
     }
 
     void startHeartHitAnim() {
-        hittedHeart.setPosition(player.getHP() * heartW, 0);
+        hittedHeart.setLeft(player.getHP() * heartW);
         heartHitCounter.restart();
     }
 
     void drawHeartHitAnim() {
         hittedHeart.setTexture(heartHitTextures[heartHitCounter.getCurrentIndex()]);
-        window->draw(hittedHeart);
+        hittedHeart.draw();
         heartHitCounter.next();
     }
 
@@ -106,10 +108,10 @@ public:
     void update() {
         short actualPlayerHP = player.getHP();
         for (short i = 0; i < actualPlayerHP; ++i) {
-            window->draw(hpSprites[i]);
+            hpSprites[i].draw();
         }
         for (short i = actualPlayerHP; i < player.getMaxHP(); ++i) {
-            window->draw(deadHpSprites[i]);
+            deadHpSprites[i].draw();
         }
 
         if (actualPlayerHP < playerHpBackup) {
@@ -121,7 +123,7 @@ public:
         }
 
         if (player.getHasShield()) {
-            window->draw(shieldSprite);
+            shieldSprite.draw();
         }
 
         playerHpBackup = actualPlayerHP;
@@ -221,6 +223,10 @@ protected:
             }
             else if (t == map_object_types::SKELETON) {
                 objects.push_back(new Skeleton(x, y, &player, args.getStartX(), args.getEndX()));
+
+            }
+            else if (t == map_object_types::SPIDER) {
+                objects.push_back(new Spider(x, y, &player, args.getEndY()));
 
             }
 

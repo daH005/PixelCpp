@@ -6,15 +6,16 @@ protected:
     inline static const vector<Texture> textures = images::shield;
     FrameIndexCyclicalCounter anim = FrameIndexCyclicalCounter(textures.size(), 0.2);
 
-    void _handleCollisionWithPlayer() override {
+    void handleCollisionWithPlayerAction() override {
         if (player->addShield()) {
             toBeDeleted = true;
         }
     }
 
-    void updateTexture() override {
+    void draw() override {
         sprite.setTexture(textures[anim.getCurrentIndex()]);
         anim.next();
+        AbstractInteractingWithPlayerGameObject::draw();
     }
 
 public:

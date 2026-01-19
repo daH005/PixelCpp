@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractEnemies.hpp"
+#include "abstractXPatrolEnemy.hpp"
 
 class Skeleton : public AbstractXPatrolEnemy {
 protected:
@@ -20,7 +20,7 @@ protected:
     int backupBottomY;
     Direction backupDirection;
 
-    void _handleCollisionWithPlayer() override {
+    void handleCollisionWithPlayerAction() override {
         if (attackAnim.getIsEnded()) {
             attackAnim.restart();
             backupSpriteValuesBeforeAttack();
@@ -32,19 +32,19 @@ protected:
     }
 
     void backupSpriteValuesBeforeAttack() {
-        backupX = sprite.getGlobalBounds().left;
-        backupY = sprite.getGlobalBounds().top;
-        backupBottomY = backupY + sprite.getGlobalBounds().height;
-        backupDirection = direction;
+        backupX = sprite.getLeft();
+        backupY = sprite.getTop();
+        backupBottomY = sprite.getBottom();
+        backupDirection = sprite.getDirection();
     }
 
     void flipSpriteToPlayerDirectionAndSetIndents() {
-        if (player->getCenter() <= getCenter()) {
-            flipSprite(Direction::LEFT);
+        if (player->getSprite().getCenterX() <= sprite.getCenterX()) {
+            sprite.setDirection(Direction::LEFT);
             attackIndents = attackAnimLeftXIndents;
         }
         else {
-            flipSprite(Direction::RIGHT);
+            sprite.setDirection(Direction::RIGHT);
             attackIndents = attackAnimRightXIndents;
         }
     }
@@ -52,7 +52,7 @@ protected:
     void attack() {
         player->hitWithStun();
         player->pushY(yPush);
-        player->pushX(xPush * direction);
+        player->pushX(xPush * sprite.getDirection());
     }
 
     void move() override {
@@ -61,7 +61,7 @@ protected:
         }
     }
 
-    void updateTexture() override {
+    void draw() override {
         if (!attackAnim.getIsEnded()) {
             setCurrentAttackTexture();
             attackAnim.next();
@@ -73,11 +73,11 @@ protected:
             sprite.setTexture(goTextures[goAnim.getCurrentIndex()]);
             goAnim.next();
         }
+        AbstractXPatrolEnemy::draw();
     }
 
     void setCurrentAttackTexture() {
-        sprite.setTexture(attackTextures[attackAnim.getCurrentIndex()], true);
-        updateOrigin();
+        sprite.setTextureWithRectUpdating(attackTextures[attackAnim.getCurrentIndex()]);
         sprite.setPosition(
             backupX - attackIndents[attackAnim.getCurrentIndex()],
             backupBottomY - attackTextures[attackAnim.getCurrentIndex()].getSize().y
@@ -85,12 +85,11 @@ protected:
     }
 
     void returnSpriteToStateBeforeAttack() {
-        sprite.setTexture(goTextures[goAnim.getCurrentIndex()], true);
-        updateOrigin();
-        flipSprite(backupDirection);
+        sprite.setTextureWithRectUpdating(goTextures[goAnim.getCurrentIndex()]);
+        sprite.setDirection(backupDirection);
         sprite.setPosition(backupX, backupY);
     }
 
 public:
-    Skeleton(int x, int y, Player* player, int startX, int endX) : AbstractXPatrolEnemy(x, y, player, startX, endX, 1.2f, 35, 3) {}
+    Skeleton(int x, int y, Player* player, int startX, int endX) : AbstractXPatrolEnemy(x, y, player, startX, endX, 1.2, 35, 3) {}
 };

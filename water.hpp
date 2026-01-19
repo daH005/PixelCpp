@@ -3,7 +3,7 @@
 
 class AbstractWater : public AbstractInteractingWithPlayerGameObject {
 protected:
-    virtual void _handleCollisionWithPlayer() override {
+    virtual void handleCollisionWithPlayerAction() override {
         player->setAsInWater();
     }
 
@@ -29,17 +29,17 @@ protected:
     int startTremblingY;
     int endTremblingY;
 
-    void _handleCollisionWithPlayer() override {
-        AbstractWater::_handleCollisionWithPlayer();
-        sprite.setPosition(sprite.getPosition().x, endTremblingY);
+    void handleCollisionWithPlayerAction() override {
+        AbstractWater::handleCollisionWithPlayerAction();
+        sprite.setTop(endTremblingY);
     }
 
     void updateTrembling() {
-        if (sprite.getGlobalBounds().top > startTremblingY) {
-            sprite.move(0, TREMBLING_SPEED_UP);
+        if (sprite.getTop() > startTremblingY) {
+            sprite.moveY(TREMBLING_SPEED_UP);
 
-            if (sprite.getGlobalBounds().top < startTremblingY) {
-                sprite.setPosition(sprite.getGlobalBounds().left, startTremblingY);
+            if (sprite.getTop() < startTremblingY) {
+                sprite.setTop(startTremblingY);
             }
         }
     }
@@ -52,7 +52,7 @@ public:
 
     void update() override {
         updateTrembling();
-        AbstractInteractingWithPlayerGameObject::update();
+        AbstractWater::update();
     }
 
 };

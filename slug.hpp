@@ -1,23 +1,23 @@
 #pragma once
-#include "abstractEnemies.hpp"
+#include "abstractXPatrolEnemy.hpp"
 
 class Slug : public AbstractXPatrolEnemy {
 protected:
-    inline static const float PLAYER_Y_VEL_FOR_DEATH = 8.f;
+    inline static const float PLAYER_Y_VEL_FOR_DEATH = 8;
     inline static const vector<Texture> goTextures = images::slugGo;
     inline static const vector<Texture> deathTextures = images::slugDeath;
 
     FrameIndexCyclicalCounter goAnim = FrameIndexCyclicalCounter(goTextures.size(), 0.1);
     FrameIndexFiniteCounter deathAnim = FrameIndexFiniteCounter(deathTextures.size(), 0.15);
 
-    void _handleCollisionWithPlayer() override {
+    void handleCollisionWithPlayerAction() override {
         float playerYvel = player->getYvel();
         if (playerYvel >= PLAYER_Y_VEL_FOR_DEATH && !player->isInGodMode() && deathAnim.getIsEnded()) {
             die();
             player->jump(-playerYvel);
         }
         else if (deathAnim.getIsEnded()) {
-            AbstractXPatrolEnemy::_handleCollisionWithPlayer();
+            AbstractXPatrolEnemy::handleCollisionWithPlayerAction();
         }
     }
 
@@ -27,10 +27,10 @@ protected:
     }
 
     void prepareRectForDeathAnim() {
-        flipSprite(Direction::RIGHT);  // Ќужно вернуть спрайт в изначальное положение дл€ корректного отображени€ текстур смерти.
-        int newX = getCenter() - deathTextures[0].getSize().x / 2;
-        sprite.setTexture(deathTextures[0], true);
-        sprite.setPosition(newX, sprite.getPosition().y);
+        sprite.setDirection(Direction::RIGHT);  // Ќужно вернуть спрайт в изначальное положение дл€ корректного отображени€ текстур смерти.
+        int newX = sprite.getCenterX() - deathTextures[0].getSize().x / 2;
+        sprite.setTextureWithRectUpdating(deathTextures[0]);
+        sprite.setLeft(newX);
     }
 
     void move() override {
@@ -39,7 +39,7 @@ protected:
         }
     }
 
-    void updateTexture() override {
+    void draw() override {
         if (deathAnim.getIsEnded()) {
             sprite.setTexture(goTextures[goAnim.getCurrentIndex()]);
             goAnim.next();
@@ -52,6 +52,7 @@ protected:
                 toBeDeleted = true;
             }
         }
+        AbstractXPatrolEnemy::draw();
     }
 
 public:

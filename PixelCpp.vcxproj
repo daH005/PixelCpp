@@ -136,7 +136,8 @@
   <ItemGroup>
     <ClInclude Include="abstractBackground.hpp" />
     <ClInclude Include="abstractBlock.hpp" />
-    <ClInclude Include="abstractEnemies.hpp" />
+    <ClInclude Include="abstractXPatrolEnemy.hpp" />
+    <ClInclude Include="abstractEnemy.hpp" />
     <ClInclude Include="abstractGameObject.hpp" />
     <ClInclude Include="abstractInteractingWithPlayerGameObject.hpp" />
     <ClInclude Include="bat.hpp" />
@@ -148,7 +149,7 @@
     <ClInclude Include="counters.hpp" />
     <ClInclude Include="direction.hpp" />
     <ClInclude Include="dirt.hpp" />
-    <ClInclude Include="gameObjectWithDirectionMixin.hpp" />
+    <ClInclude Include="spriteWrapper.hpp" />
     <ClInclude Include="heart.hpp" />
     <ClInclude Include="images.hpp" />
     <ClInclude Include="ladder.hpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="shield.hpp" />
     <ClInclude Include="skeleton.hpp" />
     <ClInclude Include="slug.hpp" />
+    <ClInclude Include="spider.hpp" />
     <ClInclude Include="spike.hpp" />
     <ClInclude Include="tree.hpp" />
     <ClInclude Include="water.hpp" />

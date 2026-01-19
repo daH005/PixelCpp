@@ -14,8 +14,8 @@ protected:
 
     uniform_int_distribution<> xRandomizer = uniform_int_distribution<>(0, window->getSize().x);
     uniform_int_distribution<> yRandomizer = uniform_int_distribution<>(0, 300);
-    uniform_real_distribution<> speedRandomizer = uniform_real_distribution<>(0.01f, 0.05f);
-    float xVel = speedRandomizer(gen);
+    uniform_real_distribution<> speedRandomizer = uniform_real_distribution<>(0.01, 0.05);
+    float xvel = speedRandomizer(gen);
     int xToBeDeleted = window->getSize().x;
 
     void initImage() {
@@ -32,7 +32,7 @@ public:
 
         int x;
         if (behindLeftEdge) {
-            x = -sprite.getGlobalBounds().width;
+            x = -sprite.getWidth();
         }
         else {
             x = xRandomizer(gen);
@@ -41,8 +41,8 @@ public:
     }
 
     void update() override {
-        sprite.move(xVel, 0);
-        if (sprite.getGlobalBounds().left > xToBeDeleted) {
+        sprite.moveX(xvel);
+        if (sprite.getLeft() > xToBeDeleted) {
             toBeDeleted = true;
         }
         AbstractGameObject::update();

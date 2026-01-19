@@ -10,14 +10,14 @@ protected:
     Player* player;
 
     void handleCollisionWithPlayer() {
-        if (!sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds())) {
+        if (!sprite.intersects(player->getSprite())) {
             return;
         }
 
-        _handleCollisionWithPlayer();
+        handleCollisionWithPlayerAction();
     }
 
-    virtual void _handleCollisionWithPlayer() {}
+    virtual void handleCollisionWithPlayerAction() {}
 
 public:
     AbstractInteractingWithPlayerGameObject(int x, int y, Player* player, int zIndex = 0) : AbstractGameObject(x, y, zIndex), player(player) {}

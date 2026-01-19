@@ -3,9 +3,9 @@
 
 class Spike : public AbstractInteractingWithPlayerGameObject {
 protected:
-    inline static const float PLAYER_Y_VEL_TO_HIT = 5.f;
+    inline static const float PLAYER_Y_VEL_TO_HIT = 5;
 
-    void _handleCollisionWithPlayer() override {
+    void handleCollisionWithPlayerAction() override {
         if (player->getYvel() >= PLAYER_Y_VEL_TO_HIT) {
             player->hit();
         }

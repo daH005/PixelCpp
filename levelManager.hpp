@@ -54,6 +54,10 @@ public:
         return data["end_x"];
     }
 
+    int getEndY() const {
+        return data["end_y"];
+    }
+
 };
 
 class LevelObject {

@@ -1,9 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-
 #include "player.hpp"
-
-using namespace sf;
 
 class Camera {
 protected:
@@ -25,18 +21,9 @@ protected:
     int yToMove;
 
     void updateXYtoMove() {
-        FloatRect playerRect = player.getSprite().getGlobalBounds();
-        xToMove = getCenterXofRect(playerRect);
-        yToMove = getCenterYofRect(playerRect);
+        xToMove = player.getSprite().getCenterX();
+        yToMove = player.getSprite().getCenterY();
         considerMapEdges();
-    }
-
-    int getCenterXofRect(FloatRect& rect) const {
-        return rect.left + rect.width / 2;
-    }
-
-    int getCenterYofRect(FloatRect& rect) const {
-        return rect.top + rect.height / 2;
     }
 
     void considerMapEdges() {
