@@ -82,6 +82,14 @@ public:
         sprite.setPosition(getLeft(), value - getHeight());
     }
 
+    void setCenterX(int value) {
+        setLeft(value - getWidth() / 2);
+    }
+
+    void setCenterY(int value) {
+        setTop(value - getHeight() / 2);
+    }
+
     void setPosition(int x, int y) {
         sprite.setPosition(x, y);
     }
@@ -116,8 +124,8 @@ public:
         updateOrigin();
     }
 
-    void flipDirectionX() {
-        setDirection(flipDirection(direction));
+    void flipDirection() {
+        setDirection(::flipDirection(direction));
     }
 
     void draw() {

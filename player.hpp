@@ -33,8 +33,8 @@ protected:
     FrameIndexCyclicalCounter goAnim = FrameIndexCyclicalCounter(goTextures->size(), 0.2);
     FrameIndexCyclicalCounter goVerticalAnim = FrameIndexCyclicalCounter(goVerticalTextures->size(), 0.2);
 
-    FPSBasedTimer godModeFPSBasedTimer = FPSBasedTimer(1.2);
-    FPSBasedTimer flashFPSBasedTimer = FPSBasedTimer(0.1);
+    FPSBasedTimer godModeTimer = FPSBasedTimer(1.2);
+    FPSBasedTimer flashTimer = FPSBasedTimer(0.1);
     int beWhiteFrameCount = convertSecondsToFrameCount(0.5);
     bool isInvisible = false;
 
@@ -158,7 +158,7 @@ protected:
             return;
         }
 
-        if (godModeFPSBasedTimer.delta() <= beWhiteFrameCount) {
+        if (godModeTimer.delta() <= beWhiteFrameCount) {
             goTextures = &images::whitePlayerGo;
             standTextures = &images::whitePlayerStand;
             goVerticalTextures = &images::whitePlayerGoVertical;
@@ -197,12 +197,12 @@ protected:
     }
 
     bool isInvisibleForFlashing() {
-        if (godModeFPSBasedTimer.isWorking()) {
-            if (!flashFPSBasedTimer.isWorking()) {
+        if (godModeTimer.isWorking()) {
+            if (!flashTimer.isWorking()) {
                 isInvisible = !isInvisible;
-                flashFPSBasedTimer.restart();
+                flashTimer.restart();
             }
-            flashFPSBasedTimer.next();
+            flashTimer.next();
 
             if (!isInvisible) {
                 return false;
@@ -249,8 +249,8 @@ public:
 
         onLadder = false;
         inWater = false;
-        godModeFPSBasedTimer.next();
-        if (!godModeFPSBasedTimer.isWorking()) {
+        godModeTimer.next();
+        if (!godModeTimer.isWorking()) {
             isStunned = false;
         }
     }
@@ -284,7 +284,7 @@ public:
     }
 
     bool isInGodMode() const {
-        return godModeFPSBasedTimer.isWorking();
+        return godModeTimer.isWorking();
     }
 
     bool addHP() {
@@ -304,14 +304,14 @@ public:
     }
 
     void hit() {
-        if (!godModeFPSBasedTimer.isWorking()) {
+        if (!godModeTimer.isWorking()) {
             if (hasShield) {
                 hasShield = false;
             }
             else {
                 hp--;
             }
-            godModeFPSBasedTimer.restart();
+            godModeTimer.restart();
         }
     }
 

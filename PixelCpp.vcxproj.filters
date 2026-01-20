@@ -125,5 +125,8 @@
     <ClInclude Include="spriteWrapper.hpp">
       <Filter>Исходные файлы\common</Filter>
     </ClInclude>
+    <ClInclude Include="cannon.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

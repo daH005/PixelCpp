@@ -7,7 +7,7 @@ public:
     Web(int x, int y, Direction direction) : AbstractGameObject(x, y, ZIndex::WEB) {
         sprite.setTexture(images::web);
         if (direction == Direction::RIGHT) {
-            sprite.flipDirectionX();
+            sprite.flipDirection();
         }
     }
 };

@@ -18,6 +18,7 @@
 #include "bat.hpp"
 #include "skeleton.hpp"
 #include "spider.hpp"
+#include "cannon.hpp"
 
 #include "camera.hpp"
 #include "mapBackground.hpp"
@@ -47,6 +48,7 @@ namespace map_object_types {
     const string BAT = "Bat";
     const string SKELETON = "Skeleton";
     const string SPIDER = "Spider";
+    const string CANNON = "Cannon";
 
 };
 
@@ -227,6 +229,10 @@ protected:
             }
             else if (t == map_object_types::SPIDER) {
                 objects.push_back(new Spider(x, y, &player, args.getEndY()));
+
+            }
+            else if (t == map_object_types::CANNON) {
+                objects.push_back(new Cannon(x, y, &player, args.getEndX()));
 
             }
 

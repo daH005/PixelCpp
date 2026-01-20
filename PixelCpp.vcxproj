@@ -143,6 +143,7 @@
     <ClInclude Include="bat.hpp" />
     <ClInclude Include="bricks.hpp" />
     <ClInclude Include="camera.hpp" />
+    <ClInclude Include="cannon.hpp" />
     <ClInclude Include="cloudManager.hpp" />
     <ClInclude Include="coin.hpp" />
     <ClInclude Include="config.hpp" />

@@ -20,7 +20,7 @@ protected:
     virtual void move() {
         if (sprite.getLeft() <= startX || sprite.getRight() >= endX) {
             xvel *= -1;
-            sprite.flipDirectionX();
+            sprite.flipDirection();
         }
         sprite.moveX(xvel);
     }

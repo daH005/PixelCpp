@@ -89,4 +89,10 @@ namespace images {
     const Texture spiderStand = loadTexture("spider/stand");
     const vector<Texture> spiderGo = loadTexturesFromDirectory("spider/go");
 
+    const Texture cannonDefault = loadTexture("cannon/cannon/default");
+    const vector<Texture> cannonShoot = loadTexturesFromDirectory("cannon/cannon/shoot");
+
+    const Texture cannonballDefault = loadTexture("cannon/cannonball/default");
+    const vector<Texture> cannonballDeath = loadTexturesFromDirectory("cannon/cannonball/death");
+
 }
