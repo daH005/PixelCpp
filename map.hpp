@@ -136,6 +136,7 @@ class Map {
 protected:
     LevelManager& levelManager;
 
+    // Создавать объекты в куче и хранить указатели на них здесь нужно для динамического полиморфизма с методом update.
     vector<AbstractGameObject*> objects;
     Player player = Player();
 
