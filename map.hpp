@@ -20,6 +20,7 @@
 #include "skeleton.hpp"
 #include "spider.hpp"
 #include "cannon.hpp"
+#include "dragon.hpp"
 
 #include "camera.hpp"
 #include "mapBackground.hpp"
@@ -51,6 +52,7 @@ namespace map_object_types {
     const string SKELETON = "Skeleton";
     const string SPIDER = "Spider";
     const string CANNON = "Cannon";
+    const string DRAGON = "Dragon";
 
 };
 
@@ -239,6 +241,10 @@ protected:
             }
             else if (t == map_object_types::CANNON) {
                 objects.push_back(new Cannon(x, y, &player, args.getEndX()));
+
+            }
+            else if (t == map_object_types::DRAGON) {
+                objects.push_back(new Dragon(x, y, &player, args.getStartX(), args.getEndX()));
 
             }
 

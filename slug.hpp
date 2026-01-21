@@ -23,10 +23,10 @@ protected:
 
     void die() {
         deathAnim.restart();
-        prepareRectForDeathAnim();
+        prepareBeforeDeathAnim();
     }
 
-    void prepareRectForDeathAnim() {
+    void prepareBeforeDeathAnim() {
         sprite.setDirection(Direction::RIGHT);  // Ќужно вернуть спрайт в изначальное положение дл€ корректного отображени€ текстур смерти.
         int newX = sprite.getCenterX() - deathTextures[0].getSize().x / 2;
         sprite.setTextureWithRectUpdating(deathTextures[0]);

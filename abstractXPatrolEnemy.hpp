@@ -18,9 +18,13 @@ protected:
     }
 
     virtual void move() {
-        if (sprite.getLeft() <= startX || sprite.getRight() >= endX) {
-            xvel *= -1;
-            sprite.flipDirection();
+        if (sprite.getLeft() <= startX) {
+            xvel = speed;
+            sprite.setDirection(Direction::RIGHT);
+        }
+        else if (sprite.getRight() >= endX) {
+            xvel = -speed;
+            sprite.setDirection(Direction::LEFT);
         }
         sprite.moveX(xvel);
     }

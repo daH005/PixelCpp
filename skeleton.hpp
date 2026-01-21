@@ -23,22 +23,15 @@ protected:
     void handleCollisionWithPlayerAction() override {
         if (attackAnim.getIsEnded()) {
             attackAnim.restart();
-            backupSpriteValuesBeforeAttack();
-            flipSpriteToPlayerDirectionAndSetIndents();
+            prepareBeforeAttackAnim();
         }
         else if (attackAnim.getCurrentIndex() == ATTACK_ANIM_INDEX_TO_HIT) {
             attack();
         }
     }
 
-    void backupSpriteValuesBeforeAttack() {
-        backupX = sprite.getLeft();
-        backupY = sprite.getTop();
-        backupBottomY = sprite.getBottom();
-        backupDirection = sprite.getDirection();
-    }
-
-    void flipSpriteToPlayerDirectionAndSetIndents() {
+    void prepareBeforeAttackAnim() {
+        backupSpriteValuesBeforeAttack();
         if (player->getSprite().getCenterX() <= sprite.getCenterX()) {
             sprite.setDirection(Direction::LEFT);
             attackIndents = attackAnimLeftXIndents;
@@ -47,6 +40,13 @@ protected:
             sprite.setDirection(Direction::RIGHT);
             attackIndents = attackAnimRightXIndents;
         }
+    }
+
+    void backupSpriteValuesBeforeAttack() {
+        backupX = sprite.getLeft();
+        backupY = sprite.getTop();
+        backupBottomY = sprite.getBottom();
+        backupDirection = sprite.getDirection();
     }
 
     void attack() {
@@ -66,7 +66,7 @@ protected:
             setCurrentAttackTexture();
             attackAnim.next();
             if (attackAnim.getIsEnded()) {
-                returnSpriteToStateBeforeAttack();
+                returnToStateBeforeAttackAnim();
             }
         }
         else {
@@ -84,7 +84,7 @@ protected:
         );
     }
 
-    void returnSpriteToStateBeforeAttack() {
+    void returnToStateBeforeAttackAnim() {
         sprite.setTextureWithRectUpdating(goTextures[goAnim.getCurrentIndex()]);
         sprite.setDirection(backupDirection);
         sprite.setPosition(backupX, backupY);

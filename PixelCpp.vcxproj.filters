@@ -134,5 +134,8 @@
     <ClInclude Include="updateAndDeleteObjects.hpp">
       <Filter>Исходные файлы\common</Filter>
     </ClInclude>
+    <ClInclude Include="dragon.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

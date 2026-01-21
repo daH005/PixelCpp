@@ -151,6 +151,7 @@
     <ClInclude Include="counters.hpp" />
     <ClInclude Include="direction.hpp" />
     <ClInclude Include="dirt.hpp" />
+    <ClInclude Include="dragon.hpp" />
     <ClInclude Include="spriteWrapper.hpp" />
     <ClInclude Include="heart.hpp" />
     <ClInclude Include="images.hpp" />
