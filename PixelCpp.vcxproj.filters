@@ -128,5 +128,11 @@
     <ClInclude Include="cannon.hpp">
       <Filter>Исходные файлы\ui</Filter>
     </ClInclude>
+    <ClInclude Include="chest.hpp">
+      <Filter>Исходные файлы\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="updateAndDeleteObjects.hpp">
+      <Filter>Исходные файлы\common</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

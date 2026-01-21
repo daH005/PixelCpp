@@ -144,6 +144,7 @@
     <ClInclude Include="bricks.hpp" />
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="cannon.hpp" />
+    <ClInclude Include="chest.hpp" />
     <ClInclude Include="cloudManager.hpp" />
     <ClInclude Include="coin.hpp" />
     <ClInclude Include="config.hpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="spider.hpp" />
     <ClInclude Include="spike.hpp" />
     <ClInclude Include="tree.hpp" />
+    <ClInclude Include="updateAndDeleteObjects.hpp" />
     <ClInclude Include="water.hpp" />
     <ClInclude Include="web.hpp" />
     <ClInclude Include="window.hpp" />

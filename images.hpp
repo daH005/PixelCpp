@@ -95,4 +95,7 @@ namespace images {
     const Texture cannonballDefault = loadTexture("cannon/cannonball/default");
     const vector<Texture> cannonballDeath = loadTexturesFromDirectory("cannon/cannonball/death");
 
+    const Texture chestDefault = loadTexture("chest/default");
+    const Texture chestOpened = loadTexture("chest/opened");
+
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractEnemy.hpp"
+#include "updateAndDeleteObjects.hpp"
 
 class Cannonball : public AbstractEnemy {
 protected:
@@ -93,15 +94,7 @@ protected:
     }
 
     void updateBalls() {
-        for (auto it = balls.begin(); it != balls.end(); ) {
-            it->update();
-            if (it->getToBeDeleted()) {
-                it = balls.erase(it);
-            }
-            else {
-                it++;
-            }
-        }
+        updateAndDeleteObjects(balls);
     }
 
 public:

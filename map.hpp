@@ -13,6 +13,7 @@
 #include "coin.hpp"
 #include "heart.hpp"
 #include "shield.hpp"
+#include "chest.hpp"
 #include "spike.hpp"
 #include "slug.hpp"
 #include "bat.hpp"
@@ -39,6 +40,7 @@ namespace map_object_types {
     const string COIN = "Coin";
     const string HEART = "Heart";
     const string SHIELD = "Shield";
+    const string CHEST = "Chest";
 
     const string LADDER = "Ladder";
     const string WATER = "Water";
@@ -194,6 +196,9 @@ protected:
             else if (t == map_object_types::SHIELD) {
                 objects.push_back(new Shield(x, y, &player));
 
+            }
+            else if (t == map_object_types::CHEST) {
+                objects.push_back(new Chest(x, y, &player));
             }
             else if (t == map_object_types::SPIKE) {
                 objects.push_back(new Spike(x, y, &player));

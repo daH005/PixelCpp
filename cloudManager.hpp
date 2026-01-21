@@ -4,6 +4,7 @@
 #include "abstractGameObject.hpp"
 #include "images.hpp"
 #include "counters.hpp"
+#include "updateAndDeleteObjects.hpp"
 
 random_device rd;
 mt19937 gen(rd());
@@ -75,15 +76,7 @@ protected:
     }
 
     void updateClouds() {
-        for (auto it = clouds.begin(); it != clouds.end(); ) {
-            it->update();
-            if (it->getToBeDeleted()) {
-                it = clouds.erase(it);
-            }
-            else {
-                it++;
-            }
-        }
+        updateAndDeleteObjects(clouds);
     }
 
 public:
