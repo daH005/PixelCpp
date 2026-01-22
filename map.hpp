@@ -154,7 +154,7 @@ protected:
 
     PlayerHP_HUD hpHUD = PlayerHP_HUD(player);
 
-    void createObjects(Level& level) {
+    void resetObjects(Level& level) {
         clearObjects();
         player.reset(level.getW());
 
@@ -255,6 +255,9 @@ protected:
 
     void clearObjects() {
         for (auto ptr : objects) {
+            if (ptr == &player) {  // Игрок не являтся объектом кучи, его нельзя удалять так, поэтому фильтруем.
+                continue;
+            }
             delete ptr;
         }
         objects.clear();
@@ -272,6 +275,7 @@ protected:
         for (auto it = objects.begin(); it != objects.end(); ) {
             (*it)->update();
             if ((*it)->getToBeDeleted()) {
+                delete *it;
                 it = objects.erase(it);
             }
             else {
@@ -285,7 +289,7 @@ public:
 
     void reset() {
         Level& level = levelManager.getCurrentLevel();
-        createObjects(level);
+        resetObjects(level);
 
         w = level.getW();
         h = level.getH();
@@ -312,7 +316,7 @@ public:
 
         // Не забыть убрать). Сделано, чтобы игра не крашилась.
         if (player.getHP() <= 0) {
-            player.addHP();
+            reset();
         }
     }
 };
