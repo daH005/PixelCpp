@@ -10,5 +10,5 @@ protected:
     }
 
 public:
-    AbstractEnemy(int x, int y, Player* player, float speed) : AbstractInteractingWithPlayerGameObject(x, y, player, ZIndex::MOVING_OBJECT), speed(speed) {}
+    AbstractEnemy(int x, int y, Player* player, float speed, int zIndex = ZIndex::MOVING_OBJECT) : AbstractInteractingWithPlayerGameObject(x, y, player, zIndex), speed(speed) {}
 };

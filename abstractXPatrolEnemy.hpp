@@ -32,8 +32,8 @@ protected:
 public:
     AbstractXPatrolEnemy(int x, int y, Player* player,
         int startX, int endX, float speed,
-        float xPush, float yPush
-    ) : AbstractEnemy(x, y, player, speed),
+        float xPush, float yPush, int zIndex = ZIndex::MOVING_OBJECT
+    ) : AbstractEnemy(x, y, player, speed, zIndex),
         startX(startX), endX(endX),
         xPush(xPush), yPush(yPush) {
     }

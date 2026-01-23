@@ -8,6 +8,7 @@ enum ZIndex {
     OVERLAY = 9,
     WEB = 10,
     BLOCK = 12,
+    DRAGON = 13,
     HINT = 100,
 
 };

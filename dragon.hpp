@@ -80,7 +80,7 @@ protected:
     }
 
 public:
-    Dragon(int x, int y, Player* player, int startX, int endX) : AbstractXPatrolEnemy(x, y, player, startX, endX, 1, 50, 100) {}
+    Dragon(int x, int y, Player* player, int startX, int endX) : AbstractXPatrolEnemy(x, y, player, startX, endX, 1, 50, 100, ZIndex::DRAGON) {}
 
     void update() override {
         handleCollisionReactionRectWithPlayer();
