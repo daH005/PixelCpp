@@ -98,7 +98,8 @@ namespace images {
     const Texture chestDefault = loadTexture("chest/default");
     const Texture chestOpened = loadTexture("chest/opened");
 
-    const vector<Texture> dragonGo = loadTexturesFromDirectory("dragon/go");
-    const vector<Texture> dragonAttack = loadTexturesFromDirectory("dragon/attack");
+    const vector<Texture> dragonDefaultGo = loadTexturesFromDirectory("dragon/go/default");
+    const vector<Texture> dragonGoWhenAttacks = loadTexturesFromDirectory("dragon/go/when_attacks");
+    const vector<Texture> dragonFire = loadTexturesFromDirectory("dragon/fire");
 
 }

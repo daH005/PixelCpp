@@ -3,60 +3,90 @@
 
 class Dragon : public AbstractXPatrolEnemy {
 protected:
-    inline static const vector<Texture> goTextures = images::dragonGo;
+    inline static const vector<Texture> goTextures = images::dragonDefaultGo;
+    inline static const vector<Texture> goWhenAttacksTextures = images::dragonGoWhenAttacks;
     FrameIndexCyclicalCounter goAnim = FrameIndexCyclicalCounter(goTextures.size(), 0.2);
 
-    inline static const vector<Texture> attackTextures = images::dragonAttack;
-    FrameIndexFiniteCounter attackAnim = FrameIndexFiniteCounter(attackTextures.size(), 0.1);
-    inline static const int LEFT_ATTACK_ANIM_INDENT = -24;
+    SpriteWrapper fireSprite;
+    inline static const vector<Texture> fireTextures = images::dragonFire;
+    FrameIndexFiniteCounter fireAnim = FrameIndexFiniteCounter(fireTextures.size(), 0.1);
+    FPSBasedTimer fireReloadTimer = FPSBasedTimer(0.5);
 
-    FloatRect reactionRect = FloatRect(0, 0, images::dragonAttack[5].getSize().x, images::dragonAttack[5].getSize().y);
+    inline static const int TOP_FIRE_INDENT = 120;
+    inline static const int SIDE_FIRE_INDENT = 40;
+
+    FloatRect reactionRect = FloatRect(0, 0, 100, 200);
 
     void handleCollisionReactionRectWithPlayer() {
-        reactionRect.left = sprite.getLeft();
-        reactionRect.top = sprite.getTop();
-
-        if (player->getSprite().intersects(reactionRect) && attackAnim.getIsEnded()) {
-            attackAnim.restart();
-            prepareBeforeAttackAnim();
+        updateReactionRectPosition();
+        if (player->getSprite().intersects(reactionRect) && fireAnim.getIsEnded() && !fireReloadTimer.isWorking()) {
+            fireAnim.restart();
         }
     }
 
-    void prepareBeforeAttackAnim() {
+    void updateReactionRectPosition() {
+        reactionRect.top = sprite.getTop() + TOP_FIRE_INDENT;
         if (sprite.getDirection() == Direction::LEFT) {
-            sprite.moveX(LEFT_ATTACK_ANIM_INDENT);
+            reactionRect.left = sprite.getLeft() - reactionRect.width + SIDE_FIRE_INDENT;
+        }
+        else {
+            reactionRect.left = sprite.getRight() - SIDE_FIRE_INDENT;
+        }
+    }
+
+    void handleCollisionFireWithPlayer() {
+        if (player->getSprite().intersects(fireSprite) && !fireAnim.getIsEnded()) {
+            player->hit();
+            player->pushY(yPush);
+            player->pushX(xPush, fireSprite.getCenterX());
+        }
+    }
+
+    void move() override {
+        if (fireAnim.getIsEnded()) {
+            AbstractXPatrolEnemy::move();
         }
     }
 
     void draw() override {
-        if (!attackAnim.getIsEnded()) {
-            sprite.setTextureWithRectUpdating(attackTextures[attackAnim.getCurrentIndex()]);
+        if (!fireAnim.getIsEnded()) {
+            sprite.setTexture(goWhenAttacksTextures[goAnim.getCurrentIndex()]);
 
-            attackAnim.next();
-            if (attackAnim.getIsEnded()) {
-                returnToStateBeforeAttackAnim();
+            fireSprite.setDirection(sprite.getDirection());
+            fireSprite.setTextureWithRectUpdating(fireTextures[fireAnim.getCurrentIndex()]);
+
+            fireSprite.setTop(sprite.getTop() + TOP_FIRE_INDENT);
+            if (fireSprite.getDirection() == Direction::LEFT) {
+                fireSprite.setRight(sprite.getLeft() + SIDE_FIRE_INDENT);
+            }
+            else {
+                fireSprite.setLeft(sprite.getRight() - SIDE_FIRE_INDENT);
+            }
+            fireSprite.draw();
+
+            fireAnim.next();
+            if (fireAnim.getIsEnded()) {
+                fireReloadTimer.restart();
+                // Вернуть малые размеры спрайту огня, чтобы при новой атаке он не зарегистрировал урон 
+                // игроку из-за большого размера, оставшегося с прошлой анимации.
+                fireSprite.setTextureWithRectUpdating(fireTextures[0]);
             }
         }
         else {
             sprite.setTexture(goTextures[goAnim.getCurrentIndex()]);
-            goAnim.next();
         }
+        goAnim.next();
         AbstractXPatrolEnemy::draw();
     }
 
-    void returnToStateBeforeAttackAnim() {
-        sprite.setTextureWithRectUpdating(goTextures[0]);
-        if (sprite.getDirection() == Direction::LEFT) {
-            sprite.moveX(-LEFT_ATTACK_ANIM_INDENT);
-        }
-    }
-
 public:
-    Dragon(int x, int y, Player* player, int startX, int endX) : AbstractXPatrolEnemy(x, y, player, startX, endX, 1, 0, 100) {}
+    Dragon(int x, int y, Player* player, int startX, int endX) : AbstractXPatrolEnemy(x, y, player, startX, endX, 1, 50, 100) {}
 
     void update() override {
         handleCollisionReactionRectWithPlayer();
+        handleCollisionFireWithPlayer();
         AbstractXPatrolEnemy::update();
+        fireReloadTimer.next();
     }
 
 };
