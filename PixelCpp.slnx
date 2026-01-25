@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="PixelCpp.vcxproj" Id="e11f5cea-087b-443e-9822-ffc32b44bad0" />
-</Solution>
