@@ -1,5 +1,5 @@
 #pragma once
-#include "config.hpp";
+#include "config.hpp"
 
 float convertSecondsToFrameCount(float seconds) {
     return seconds * config::MAX_FPS;

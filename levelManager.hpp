@@ -148,14 +148,14 @@ public:
         return levels.size();
     }
 
-    int setLevel(int index) {
+    void setLevel(int index) {
         if (index < 0 || index > getLevelCount() - 1) {
             throw "The index is not in the range of levels!";
         }
         currentLevelIndex = index;
     }
 
-    int nextLevel() {
+    void nextLevel() {
         if (currentLevelIndex < getLevelCount() - 1) {
             currentLevelIndex += 1;
         }
