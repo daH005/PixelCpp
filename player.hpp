@@ -16,7 +16,7 @@ protected:
     short hp = MAX_HP;
     float xvel = 0;
     float yvel = 0;
-    float currentXpush;
+    float currentXpush = 0;
     bool onGround = false;
     bool onLadder = false;
     bool inWater = false;
