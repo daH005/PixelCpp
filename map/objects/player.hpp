@@ -21,6 +21,7 @@ protected:
     bool inWater = false;
     bool hasShield = false;
     int mapW;
+    bool isFinished = false;
 
     vector<FloatRect> blockRects;
 
@@ -230,6 +231,7 @@ public:
         hp = MAX_HP;
         blockRects.clear();
         mapW = _mapW;
+        isFinished = false;
     }
 
     void setPosition(int x, int y) {
@@ -286,6 +288,10 @@ public:
         return godModeTimer.isWorking();
     }
 
+    bool getIsFinished() const {
+        return isFinished;
+    }
+
     bool addHP() {
         if (hp < MAX_HP) {
             hp++;
@@ -338,6 +344,10 @@ public:
 
     void jump(float power) {
         yvel = power;
+    }
+
+    void finish() {
+        isFinished = true;
     }
 
 };

@@ -64,10 +64,13 @@ namespace images {
     const vector<Texture> coin = loadTexturesFromDirectory("coin");
     const vector<Texture> shield = loadTexturesFromDirectory("shield");
 
-    const Texture spike = loadTexture("spike");
+    const Texture chestDefault = loadTexture("chest/default");
+    const Texture chestOpened = loadTexture("chest/opened");
 
     const Texture water = loadTexture("water/default");
     const Texture topWater = loadTexture("water/top");
+
+    const Texture finish = loadTexture("finish");
 
     const vector<Texture> playerStand = loadTexturesFromDirectory("player/default/stand");
     const vector<Texture> playerGo = loadTexturesFromDirectory("player/default/go");
@@ -77,6 +80,8 @@ namespace images {
     const vector<Texture> whitePlayerStand = loadTexturesFromDirectory("player/white_default/stand");
     const vector<Texture> whitePlayerGo = loadTexturesFromDirectory("player/white_default/go");
     const vector<Texture> whitePlayerGoVertical = loadTexturesFromDirectory("player/white_default/go_vertical");
+
+    const Texture spike = loadTexture("spike");
 
     const vector<Texture> slugGo = loadTexturesFromDirectory("slug/go");
     const vector<Texture> slugDeath = loadTexturesFromDirectory("slug/death");
@@ -94,9 +99,6 @@ namespace images {
 
     const Texture cannonballDefault = loadTexture("cannon/cannonball/default");
     const vector<Texture> cannonballDeath = loadTexturesFromDirectory("cannon/cannonball/death");
-
-    const Texture chestDefault = loadTexture("chest/default");
-    const Texture chestOpened = loadTexture("chest/opened");
 
     const vector<Texture> dragonDefaultGo = loadTexturesFromDirectory("dragon/go/default");
     const vector<Texture> dragonGoWhenAttacks = loadTexturesFromDirectory("dragon/go/when_attacks");

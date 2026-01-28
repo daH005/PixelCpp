@@ -9,6 +9,7 @@
 #include "objects/bricks.hpp"
 #include "objects/ladder.hpp"
 #include "objects/water.hpp"
+#include "objects/finish.hpp"
 #include "objects/coin.hpp"
 #include "objects/heart.hpp"
 #include "objects/shield.hpp"
@@ -45,8 +46,9 @@ namespace map_object_types {
 
     const string LADDER = "Ladder";
     const string WATER = "Water";
-    const string SPIKE = "Spike";
+    const string FINISH = "Finish";
 
+    const string SPIKE = "Spike";
     const string SLUG = "Slug";
     const string BAT = "Bat";
     const string SKELETON = "Skeleton";
@@ -173,6 +175,9 @@ protected:
             }
             else if (t == map_object_types::DIRT) {
                 objects.push_back(new Dirt(x, y, &player, args.getDirection(), args.getGrassEnabled()));
+                
+            } else if (t == map_object_types::BACKGROUND_DIRT) {
+                objects.push_back(new BackgroundDirt(x, y));
 
             }
             else if (t == map_object_types::BRICKS) {
@@ -202,10 +207,6 @@ protected:
             else if (t == map_object_types::CHEST) {
                 objects.push_back(new Chest(x, y, &player));
             }
-            else if (t == map_object_types::SPIKE) {
-                objects.push_back(new Spike(x, y, &player));
-
-            }
             else if (t == map_object_types::WATER) {
                 if (args.getIsTop()) {
                     objects.push_back(new TopWater(x, y, &player));
@@ -221,6 +222,13 @@ protected:
             }
             else if (t == map_object_types::WEB) {
                 objects.push_back(new Web(x, y, args.getDirection()));
+
+            }
+            else if (t == map_object_types::FINISH) {
+                objects.push_back(new Finish(x, y, &player));
+            }
+            else if (t == map_object_types::SPIKE) {
+                objects.push_back(new Spike(x, y, &player));
 
             }
             else if (t == map_object_types::SLUG) {
@@ -284,6 +292,11 @@ protected:
         }
     }
 
+    void switchToNextLevel() {
+        levelManager.nextLevel();
+        reset();
+    }
+
 public:
     Map(LevelManager& levelManager) : levelManager(levelManager) {}
 
@@ -313,6 +326,10 @@ public:
 
         window->setView(window->getDefaultView());
         hpHUD.update();
+
+        if (player.getIsFinished()) {
+            switchToNextLevel();
+        }
 
         // Не забыть убрать). Сделано, чтобы игра не крашилась.
         if (player.getHP() <= 0) {

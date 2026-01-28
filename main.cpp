@@ -18,7 +18,7 @@ int main()
 
     LevelManager levelManager = LevelManager();
     levelManager.reset();
-    levelManager.setLevel(9);
+    levelManager.setLevel(8);
     Map map = Map(levelManager);
     map.reset();
 
