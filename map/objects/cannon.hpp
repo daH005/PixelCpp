@@ -1,6 +1,6 @@
 #pragma once
-#include "abstractEnemy.hpp"
-#include "updateAndDeleteObjects.hpp"
+#include "../../common/updateAndDeleteObjects.hpp"
+#include "abstract/abstractEnemy.hpp"
 
 class Cannonball : public AbstractEnemy {
 protected:

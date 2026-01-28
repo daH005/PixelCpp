@@ -14,10 +14,6 @@ protected:
 public:
     SpriteWrapper() {}
 
-    Sprite& getSprite() {  // Удалить!
-        return sprite;
-    }
-
     int getLeft() const {
         return sprite.getGlobalBounds().left;
     }

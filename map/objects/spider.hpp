@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractEnemy.hpp"
+#include "abstract/abstractEnemy.hpp"
 
 class SpiderWeb {
 protected:

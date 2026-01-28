@@ -1,8 +1,8 @@
 #pragma once
-#include "abstractBlock.hpp"
-#include "abstractBackground.hpp"
-#include "images.hpp"
-#include "direction.hpp"
+#include "../../common/images.hpp"
+#include "../../common/direction.hpp"
+#include "abstract/abstractBlock.hpp"
+#include "abstract/abstractBackground.hpp"
 
 class Dirt : public AbstractBlock {
 protected:

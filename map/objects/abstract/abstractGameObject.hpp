@@ -1,7 +1,6 @@
 #pragma once
-#include "window.hpp"
-#include "zIndex.hpp"
-#include "spriteWrapper.hpp"
+#include "../../../common/zIndex.hpp"
+#include "../../../common/spriteWrapper.hpp"
 
 class AbstractGameObject {
 protected:

@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractInteractingWithPlayerGameObject.hpp"
+#include "abstract/abstractInteractingWithPlayerGameObject.hpp"
 
 class Ladder : public AbstractInteractingWithPlayerGameObject {
 protected:

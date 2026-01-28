@@ -2,9 +2,9 @@
 #include <fstream>
 #include <sstream>
 
-#include "direction.hpp"
-#include "json.hpp"
-#include "config.hpp"
+#include "../common/direction.hpp"
+#include "../common/json.hpp"
+#include "../common/config.hpp"
 
 using json = nlohmann::json;
 

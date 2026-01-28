@@ -1,5 +1,5 @@
 #pragma once
-#include "player.hpp"
+#include "objects/player.hpp"
 
 class Camera {
 protected:

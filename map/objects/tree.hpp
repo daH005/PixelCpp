@@ -1,6 +1,6 @@
 #pragma once
-#include "abstractGameObject.hpp"
-#include "images.hpp"
+#include "../../common/images.hpp"
+#include "abstract/abstractGameObject.hpp"
 
 class Tree : public AbstractBackground {
 public:

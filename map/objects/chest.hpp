@@ -1,7 +1,7 @@
 #pragma once
-#include "abstractInteractingWithPlayerGameObject.hpp"
+#include "../../common/updateAndDeleteObjects.hpp"
+#include "abstract/abstractInteractingWithPlayerGameObject.hpp"
 #include "coin.hpp"
-#include "updateAndDeleteObjects.hpp"
 
 class TakenCoin : public Coin {
 public:

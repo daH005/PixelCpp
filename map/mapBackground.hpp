@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractGameObject.hpp"
+#include "objects/abstract/abstractGameObject.hpp"
 #include "camera.hpp"
 
 class MapBackground : public AbstractGameObject {

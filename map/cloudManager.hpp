@@ -1,10 +1,10 @@
 #pragma once
 #include <random>
 
-#include "abstractGameObject.hpp"
-#include "images.hpp"
-#include "counters.hpp"
-#include "updateAndDeleteObjects.hpp"
+#include "../common/images.hpp"
+#include "../common/counters.hpp"
+#include "../common/updateAndDeleteObjects.hpp"
+#include "objects/abstract/abstractGameObject.hpp"
 
 random_device rd;
 mt19937 gen(rd());

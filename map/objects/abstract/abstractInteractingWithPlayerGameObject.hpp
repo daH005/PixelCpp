@@ -1,6 +1,6 @@
 #pragma once
+#include "../player.hpp"
 #include "abstractGameObject.hpp"
-#include "player.hpp"
 
 class AbstractInteractingWithPlayerGameObject : public AbstractGameObject {
 protected:

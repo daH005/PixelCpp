@@ -1,6 +1,6 @@
 #pragma once
+#include "../player.hpp"
 #include "abstractGameObject.hpp"
-#include "player.hpp"
 
 class AbstractBlock : public AbstractGameObject {
 public:

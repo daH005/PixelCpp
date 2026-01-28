@@ -1,9 +1,8 @@
 #pragma once
-#include "abstractGameObject.hpp"
-#include "gameObjectWithDirectionMixin.hpp"
-#include "images.hpp"
-#include "counters.hpp"
-#include "direction.hpp"
+#include "../../common/images.hpp"
+#include "../../common/counters.hpp"
+#include "../../common/direction.hpp"
+#include "abstract/abstractGameObject.hpp"
 
 class Player : public AbstractGameObject {
 protected:

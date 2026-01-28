@@ -1,5 +1,5 @@
 #pragma once
-#include "abstractXPatrolEnemy.hpp"
+#include "abstract/abstractXPatrolEnemy.hpp"
 
 class Slug : public AbstractXPatrolEnemy {
 protected:
