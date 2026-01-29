@@ -21,6 +21,7 @@
 #include "objects/spider.hpp"
 #include "objects/cannon.hpp"
 #include "objects/dragon.hpp"
+#include "objects/ghost.hpp"
 
 #include "levelManager.hpp"
 #include "camera.hpp"
@@ -55,6 +56,7 @@ namespace map_object_types {
     const string SPIDER = "Spider";
     const string CANNON = "Cannon";
     const string DRAGON = "Dragon";
+    const string GHOST = "Ghost";
 
 };
 
@@ -254,6 +256,9 @@ protected:
             else if (t == map_object_types::DRAGON) {
                 objects.push_back(new Dragon(x, y, &player, args.getStartX(), args.getEndX()));
 
+            } else if (t == map_object_types::GHOST) {
+                objects.push_back(new Ghost(x, y, &player, args.getStartX(), args.getEndX()));
+                
             }
 
         }

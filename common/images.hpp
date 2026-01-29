@@ -104,4 +104,7 @@ namespace images {
     const vector<Texture> dragonGoWhenAttacks = loadTexturesFromDirectory("dragon/go/when_attacks");
     const vector<Texture> dragonFire = loadTexturesFromDirectory("dragon/fire");
 
+    const Texture ghostDefault = loadTexture("ghost/default");
+    const Texture ghostAttack = loadTexture("ghost/attack");
+
 }
