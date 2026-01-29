@@ -56,6 +56,8 @@ namespace images {
     const Texture bricks = loadTexture("bricks/default");
     const Texture backgroundBricks = loadTexture("bricks/background");
 
+    const Texture overlay = loadTexture("overlay");
+
     const Texture ladder = loadTexture("ladder");
 
     const Texture deadHeart = loadTexture("heart/dead");

@@ -7,6 +7,7 @@
 #include "objects/tree.hpp"
 #include "objects/web.hpp"
 #include "objects/bricks.hpp"
+#include "objects/overlay.hpp"
 #include "objects/ladder.hpp"
 #include "objects/water.hpp"
 #include "objects/finish.hpp"
@@ -39,6 +40,8 @@ namespace map_object_types {
 
     const string BRICKS = "Bricks";
     const string BACKGROUND_BRICKS = "BackgroundBricks";
+
+    const string OVERLAY = "Overlay";
     
     const string COIN = "Coin";
     const string HEART = "Heart";
@@ -188,6 +191,9 @@ protected:
             }
             else if (t == map_object_types::BACKGROUND_BRICKS) {
                 objects.push_back(new BackgroundBricks(x, y));
+
+            } else if (t == map_object_types::OVERLAY) {
+                objects.push_back(new Overlay(x, y, args.getW(), args.getH()));
 
             }
             else if (t == map_object_types::LADDER) {

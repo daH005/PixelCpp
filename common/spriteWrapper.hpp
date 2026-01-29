@@ -124,6 +124,10 @@ public:
         setDirection(::flipDirection(direction));
     }
 
+    void setScale(float xFactor, float yFactor) {
+        sprite.setScale(xFactor, yFactor);
+    }
+
     void draw() {
         window->draw(sprite);
     }

@@ -58,6 +58,14 @@ public:
         return data["end_y"];
     }
 
+    int getW() const {
+        return data["w"];
+    }
+
+    int getH() const {
+        return data["h"];
+    }
+
 };
 
 class LevelObject {
