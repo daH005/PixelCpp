@@ -151,9 +151,6 @@ protected:
     vector<AbstractGameObject*> objects;
     Player player = Player();
 
-    int w;
-    int h;
-
     Camera camera = Camera(player);
     MapBackground background = MapBackground(camera);
     CloudManager cloudManager = CloudManager();
@@ -163,7 +160,7 @@ protected:
 
     void resetObjects(const Level& level) {
         clearObjects();
-        player.reset(w, h);
+        player.reset(level.getW(), level.getH());
 
         Dirt::resetGrass();
         string t;
@@ -315,10 +312,11 @@ public:
         const Level& level = levelManager.getCurrentLevel();
         resetObjects(level);
 
-        w = level.getW();
-        h = level.getH();
-
-        camera.reset(w, h, level.getCameraBoundingHorizontalLines());
+        camera.reset(
+            level.getW(), 
+            level.getH(), 
+            level.getCameraBoundingHorizontalLines()
+        );
         camera.quickMove();
 
         background.reset();
