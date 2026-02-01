@@ -161,16 +161,16 @@ protected:
 
     PlayerHP_HUD hpHUD = PlayerHP_HUD(player);
 
-    void resetObjects(Level& level) {
+    void resetObjects(const Level& level) {
         clearObjects();
         player.reset(level.getW());
 
         Dirt::resetGrass();
         string t;
         int x, y;
-        for (LevelObject& ob : level.getObjects()) {
+        for (const LevelObject& ob : level.getObjects()) {
             t = ob.getType();
-            LevelObjectArgs& args = ob.getArgs();
+            const LevelObjectArgs& args = ob.getArgs();
             x = args.getX();
             y = args.getY();
 
@@ -312,7 +312,7 @@ public:
     Map(LevelManager& levelManager) : levelManager(levelManager) {}
 
     void reset() {
-        Level& level = levelManager.getCurrentLevel();
+        const Level& level = levelManager.getCurrentLevel();
         resetObjects(level);
 
         w = level.getW();

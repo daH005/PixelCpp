@@ -76,11 +76,11 @@ protected:
 public:
     LevelObject(json data) : data(data), args(data["args"]) {}
 
-    string getType() {
+    string getType() const {
         return data["type"];
     }
 
-    LevelObjectArgs& getArgs() {
+    const LevelObjectArgs& getArgs() const {
         return args;
     }
 
@@ -135,7 +135,7 @@ public:
         return data["h"];
     }
 
-    vector<LevelObject>& getObjects() {
+    const vector<LevelObject>& getObjects() const {
         return objects;
     }
 
@@ -190,7 +190,7 @@ public:
         }
     }
 
-    Level& getCurrentLevel() {
+    const Level& getCurrentLevel() const {
         return levels[currentLevelIndex];
     }
 

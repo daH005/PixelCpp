@@ -3,8 +3,8 @@
 
 class Camera {
 protected:
-    const float X_SMOOTH = 0.05f;
-    const float Y_SMOOTH = 0.01f;
+    inline static const float X_SMOOTH = 0.05f;
+    inline static const float Y_SMOOTH = 0.01f;
     
     Vector2u size = window->getSize();
     int w = size.x;
