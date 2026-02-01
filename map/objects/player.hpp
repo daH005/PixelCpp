@@ -21,6 +21,7 @@ protected:
     bool inWater = false;
     bool hasShield = false;
     int mapW;
+    int mapH;
     bool isFinished = false;
 
     vector<FloatRect> blockRects;
@@ -117,6 +118,9 @@ protected:
     void handleMapEdges() {
         if (sprite.getLeft() < 0 || sprite.getRight() > mapW) {
             sprite.moveX(-xvel);
+        }
+        if (sprite.getTop() > mapH) {
+            hp = 0;
         }
     }
 
@@ -227,10 +231,11 @@ protected:
 public:
     Player() : AbstractGameObject(0, 0, ZIndex::MOVING_OBJECT) {}
 
-    void reset(int _mapW) {
+    void reset(int _mapW, int _mapH) {
         hp = MAX_HP;
         blockRects.clear();
         mapW = _mapW;
+        mapH = _mapH;
         isFinished = false;
     }
 

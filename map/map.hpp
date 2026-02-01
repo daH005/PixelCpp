@@ -163,7 +163,7 @@ protected:
 
     void resetObjects(const Level& level) {
         clearObjects();
-        player.reset(level.getW());
+        player.reset(w, h);
 
         Dirt::resetGrass();
         string t;
