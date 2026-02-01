@@ -99,7 +99,7 @@ protected:
 
 public:
     Cannon(int x, int y, Player* player, int endX) : AbstractGameObject(x, y), player(player), ballEndX(endX), ballStartY(y + 12) {
-        setReloadState();  // Перед flip нужно задать начальный rect.
+        setReloadState();  // РџРµСЂРµРґ flip РЅСѓР¶РЅРѕ Р·Р°РґР°С‚СЊ РЅР°С‡Р°Р»СЊРЅС‹Р№ rect.
         if (endX < x) {
             sprite.setDirection(Direction::LEFT);
             ballStartX = x;

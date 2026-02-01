@@ -8,7 +8,7 @@ class Player : public AbstractGameObject {
 protected:
     inline static const float SPEED = 5;
     inline static const float GRAVITY = 1;
-    inline static const float GRAVITY_IN_WATER = GRAVITY;  // Если меньше 1, то некорректно работает коллизия с блоками, пока игрок внутри воды.
+    inline static const float GRAVITY_IN_WATER = GRAVITY;  // Р•СЃР»Рё РјРµРЅСЊС€Рµ 1, С‚Рѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕ СЂР°Р±РѕС‚Р°РµС‚ РєРѕР»Р»РёР·РёСЏ СЃ Р±Р»РѕРєР°РјРё, РїРѕРєР° РёРіСЂРѕРє РІРЅСѓС‚СЂРё РІРѕРґС‹.
     inline static const float JUMP_POWER = -15;
     inline static const short MAX_HP = 3;
 

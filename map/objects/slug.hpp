@@ -27,7 +27,7 @@ protected:
     }
 
     void prepareBeforeDeathAnim() {
-        sprite.setDirection(Direction::RIGHT);  // Нужно вернуть спрайт в изначальное положение для корректного отображения текстур смерти.
+        sprite.setDirection(Direction::RIGHT);  // РќСѓР¶РЅРѕ РІРµСЂРЅСѓС‚СЊ СЃРїСЂР°Р№С‚ РІ РёР·РЅР°С‡Р°Р»СЊРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚РµРєСЃС‚СѓСЂ СЃРјРµСЂС‚Рё.
         int newX = sprite.getCenterX() - deathTextures[0].getSize().x / 2;
         sprite.setTextureWithRectUpdating(deathTextures[0]);
         sprite.setLeft(newX);
