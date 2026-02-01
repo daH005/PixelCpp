@@ -318,7 +318,7 @@ public:
         w = level.getW();
         h = level.getH();
 
-        camera.reset(w, h);
+        camera.reset(w, h, level.getCameraBoundingHorizontalLines());
         camera.quickMove();
 
         background.reset();

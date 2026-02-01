@@ -86,10 +86,25 @@ public:
 
 };
 
+struct CameraBoundingHorizontalLine {
+    int startX;
+    int endX;
+    int y;
+};
+
 class Level {
 protected:
     json data;
     vector<LevelObject> objects;
+    vector<CameraBoundingHorizontalLine> cameraBoundingHorizontalLines;
+
+    void initCameraBoundingHorizontalLines() {
+        for (const auto& line : data["camera_bounding_horizontal_lines"]) {
+            cameraBoundingHorizontalLines.push_back({
+                line[0], line[1], line[2]
+            });
+        }
+    }
 
 public:
     Level() {}
@@ -108,6 +123,8 @@ public:
         for (json& ob : data["objects"]) {
             objects.push_back(LevelObject(ob));
         }
+
+        initCameraBoundingHorizontalLines();
     }
 
     int getW() const {
@@ -120,6 +137,10 @@ public:
 
     vector<LevelObject>& getObjects() {
         return objects;
+    }
+
+    const vector<CameraBoundingHorizontalLine>& getCameraBoundingHorizontalLines() const {
+        return cameraBoundingHorizontalLines;
     }
 
 };
